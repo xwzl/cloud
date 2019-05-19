@@ -2,7 +2,7 @@ eureka:
   client:
     # 注册服务中心
     service-url:
-      defaultZone: http://localhost:8762/eureka/,http://localhost:8763/eureka/
+      defaultZone: http://localhost:8761/eureka/,http://localhost:8763/eureka/
     # 不注册 eureka
     register-with-eureka: false
   # fetch-registry: false
@@ -12,6 +12,6 @@ eureka:
 
 spring:
   application:
-    name: server-eureka
+    name: server-eureka2
 server:
   port: 8762
