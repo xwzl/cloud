@@ -1,0 +1,13 @@
+eureka:
+  client:
+    # 注册服务中心
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  # 注册中心查看注册服务跳转链接地址：localhost => clientName
+  instance:
+    hostname: clientName
+spring:
+  application:
+    name: server-client
+server:
+  port: 8080

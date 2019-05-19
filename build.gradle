@@ -1,0 +1,135 @@
+buildscript {
+
+    repositories {
+        mavenLocal()
+        maven {
+            url 'http://maven.aliyun.com/nexus/content/groups/public/'
+        }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        maven { url 'https://repo.spring.io/snapshot' }
+        maven { url 'https://repo.spring.io/milestone' }
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.19.2")
+    }
+
+}
+
+plugins {
+    id 'org.springframework.boot' version '2.1.5.RELEASE'
+    id 'java'
+}
+
+ext {
+    set('springCloudVersion', "Greenwich.SR1")
+}
+
+configure(allprojects) { project ->
+
+    // 设置子项目名称
+    group = "${group}${name}"
+
+    version '1.0.0'
+
+    apply plugin: 'idea'
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'com.palantir.docker'
+    apply plugin: 'io.spring.dependency-management'
+
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+
+    repositories {
+        mavenLocal()
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        maven { url 'https://repo.spring.io/snapshot' }
+        maven { url 'https://repo.spring.io/milestone' }
+    }
+
+//    def commonCompilerArgs =
+//            ["-Xlint:serial", "-Xlint:cast", "-Xlint:classfile", "-Xlint:dep-ann",
+//             "-Xlint:divzero", "-Xlint:empty", "-Xlint:finally", "-Xlint:overrides",
+//             "-Xlint:path", "-Xlint:processing", "-Xlint:static", "-Xlint:try", "-Xlint:-options"]
+//
+//    compileJava.options*.compilerArgs = commonCompilerArgs +
+//            ["-Xlint:varargs", "-Xlint:fallthrough", "-Xlint:rawtypes",
+//             "-Xlint:deprecation", "-Xlint:unchecked"/*, "-Werror"*/]
+//
+//    compileTestJava.options*.compilerArgs = commonCompilerArgs +
+//            ["-Xlint:-varargs", "-Xlint:-fallthrough", "-Xlint:-rawtypes",
+//             "-Xlint:-deprecation", "-Xlint:-unchecked"]
+//
+//    compileJava {
+//        sourceCompatibility = '1.8'  // can be switched to 8 for testing
+//        targetCompatibility = '1.8'
+//        options.encoding = "UTF-8"
+//    }
+//
+//    compileTestJava {
+//        sourceCompatibility = '1.8'  // can be switched to 8 for testing
+//        targetCompatibility = '1.8'
+//        options.encoding = "UTF-8"
+//        options.compilerArgs += "-parameters"
+//    }
+
+
+
+    dependencies {
+        compile(
+//                "mysql:mysql-connector-java:${mysqlVersion}",
+//                "org.jetbrains:annotations:${jannotationVersion}",
+                "org.projectlombok:lombok:${lombokVersion}",
+        )
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        }
+    }
+
+
+    docker {
+        name "${rootProject.name}/${project.name}:${version}"
+        files bootJar.archiveFile.get().asFile
+        buildArgs(['JAR_FILE': "${bootJar.archiveFile.get().getAsFile().getName()}"])
+    }
+
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+
+    // 配置镜像名称和版本号
+    jar {
+        manifest {
+            attributes("Implementation-Title": "Gradle")
+        }
+    }
+
+    // 解决 jar 无法被发现的问题
+    jar.enabled = true
+
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+        }
+    }
+
+}
+
+
