@@ -59,31 +59,31 @@ configure(allprojects) { project ->
         maven { url 'https://repo.spring.io/milestone' }
     }
 
-//    def commonCompilerArgs =
-//            ["-Xlint:serial", "-Xlint:cast", "-Xlint:classfile", "-Xlint:dep-ann",
-//             "-Xlint:divzero", "-Xlint:empty", "-Xlint:finally", "-Xlint:overrides",
-//             "-Xlint:path", "-Xlint:processing", "-Xlint:static", "-Xlint:try", "-Xlint:-options"]
-//
-//    compileJava.options*.compilerArgs = commonCompilerArgs +
-//            ["-Xlint:varargs", "-Xlint:fallthrough", "-Xlint:rawtypes",
-//             "-Xlint:deprecation", "-Xlint:unchecked"/*, "-Werror"*/]
-//
-//    compileTestJava.options*.compilerArgs = commonCompilerArgs +
-//            ["-Xlint:-varargs", "-Xlint:-fallthrough", "-Xlint:-rawtypes",
-//             "-Xlint:-deprecation", "-Xlint:-unchecked"]
-//
-//    compileJava {
-//        sourceCompatibility = '1.8'  // can be switched to 8 for testing
-//        targetCompatibility = '1.8'
-//        options.encoding = "UTF-8"
-//    }
-//
-//    compileTestJava {
-//        sourceCompatibility = '1.8'  // can be switched to 8 for testing
-//        targetCompatibility = '1.8'
-//        options.encoding = "UTF-8"
-//        options.compilerArgs += "-parameters"
-//    }
+    def commonCompilerArgs =
+            ["-Xlint:serial", "-Xlint:cast", "-Xlint:classfile", "-Xlint:dep-ann",
+             "-Xlint:divzero", "-Xlint:empty", "-Xlint:finally", "-Xlint:overrides",
+             "-Xlint:path", "-Xlint:processing", "-Xlint:static", "-Xlint:try", "-Xlint:-options"]
+
+    compileJava.options*.compilerArgs = commonCompilerArgs +
+            ["-Xlint:varargs", "-Xlint:fallthrough", "-Xlint:rawtypes",
+             "-Xlint:deprecation", "-Xlint:unchecked"/*, "-Werror"*/]
+
+    compileTestJava.options*.compilerArgs = commonCompilerArgs +
+            ["-Xlint:-varargs", "-Xlint:-fallthrough", "-Xlint:-rawtypes",
+             "-Xlint:-deprecation", "-Xlint:-unchecked"]
+
+    compileJava {
+        sourceCompatibility = '1.8'  // can be switched to 8 for testing
+        targetCompatibility = '1.8'
+        options.encoding = "UTF-8"
+    }
+
+    compileTestJava {
+        sourceCompatibility = '1.8'  // can be switched to 8 for testing
+        targetCompatibility = '1.8'
+        options.encoding = "UTF-8"
+        options.compilerArgs += "-parameters"
+    }
 
 
 
