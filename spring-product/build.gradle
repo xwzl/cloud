@@ -1,0 +1,37 @@
+task resourceOut(type: Copy) {
+    copy {
+        from("src/main/java") {
+            include("**/*.xml")
+        }
+        into("${rootDir}/${project.name}/out/production/classes")
+    }
+}
+
+task resourceBuild(type: Copy) {
+    copy {
+        from("src/main/java") {
+            include("**/*.xml")
+        }
+        into("${rootDir}/${project.name}/build/classes/java/main/")
+    }
+}
+
+
+dependencies {
+    compile(
+
+            "com.baomidou:mybatis-plus:${baomidouVersion}",
+            "com.baomidou:mybatis-plus-generator:${baomidouVersion}",
+            "com.baomidou:mybatis-plus-boot-starter:${baomidouVersion}",
+
+            "io.springfox:springfox-swagger2:${swaggerVersion}",
+            "com.github.onsoul:springfox-swagger-ui:${swaggerGitHubUi}",
+
+            "org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}",
+            "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client",
+            // 不加SpringBoot Web 依赖会自动退出
+            "org.springframework.boot:spring-boot-starter-web",
+            "mysql:mysql-connector-java:${mysqlVersion}",
+    )
+
+}

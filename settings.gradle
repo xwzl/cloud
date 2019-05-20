@@ -6,4 +6,6 @@ pluginManagement {
 rootProject.name = 'cloud'
 
 include 'spring-server'
-include 'spring-client'
+include 'spring-order'
+include 'spring-product'
+include 'spring-tool'
