@@ -1,24 +1,15 @@
-package com.cloud.product.vo;
+package com.cloud.common.VO;
 
 /**
  * @author xuweizhi
- * @date 2019/05/20 17:53
+ * @since  2019/05/20 23:09
  */
 public class ResultVO<T> {
 
-    /**
-     * 返回状态码
-     */
     private Integer code;
 
-    /**
-     * 返回信息
-     */
     private String msg;
 
-    /**
-     * 返回数据体
-     */
     private T data;
 
     public Integer getCode() {
@@ -53,5 +44,4 @@ public class ResultVO<T> {
                 ", data=" + data +
                 '}';
     }
-
 }

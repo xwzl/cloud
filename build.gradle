@@ -85,13 +85,16 @@ configure(allprojects) { project ->
         options.compilerArgs += "-parameters"
     }
 
-
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
 
     dependencies {
-        compile(
-                "org.jetbrains:annotations:${jannotationVersion}",
-                "org.projectlombok:lombok:${lombokVersion}",
-        )
+        compile("org.jetbrains:annotations:${jannotationVersion}")
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
     }
 

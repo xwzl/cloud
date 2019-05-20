@@ -16,14 +16,28 @@ task resourceBuild(type: Copy) {
     }
 }
 
+//sourceSets {
+//    main {
+//        java {
+//            srcDirs = ['src/main/java', '../spring-common/src/main/java']
+//        }
+//    }
+//}
+//jar {
+//    manifest {
+//        attributes 'Main-Class': 'com.cloud.product.ProductApplication'
+//    }
+//}
 
 dependencies {
-    compile(
 
+    compile(project(":spring-common"))
+    compile(
             "com.baomidou:mybatis-plus:${baomidouVersion}",
             "com.baomidou:mybatis-plus-generator:${baomidouVersion}",
             "com.baomidou:mybatis-plus-boot-starter:${baomidouVersion}",
 
+            "com.google.code.gson:gson",
             "io.springfox:springfox-swagger2:${swaggerVersion}",
             "com.github.onsoul:springfox-swagger-ui:${swaggerGitHubUi}",
 

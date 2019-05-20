@@ -3,7 +3,7 @@
 <mapper namespace="com.cloud.order.mapper.OrderMasterMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.cloud.order.model.OrderMaster">
+    <resultMap id="BaseResultMap" type="com.cloud.order.dataobject.OrderMaster">
         <id column="order_id" property="orderId" />
         <result column="buyer_name" property="buyerName" />
         <result column="buyer_phone" property="buyerPhone" />

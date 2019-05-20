@@ -16,10 +16,11 @@ task resourceBuild(type: Copy) {
     }
 }
 
-
 dependencies {
-    compile(
 
+    compile(project(":spring-common"))
+
+    compile(
             "com.baomidou:mybatis-plus:${baomidouVersion}",
             "com.baomidou:mybatis-plus-generator:${baomidouVersion}",
             "com.baomidou:mybatis-plus-boot-starter:${baomidouVersion}",

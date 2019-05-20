@@ -1,14 +1,14 @@
 package com.cloud.product.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.cloud.common.VO.ResultVO;
+import com.cloud.common.utils.ResultVOUtil;
 import com.cloud.product.model.ProductCategory;
 import com.cloud.product.model.ProductInfo;
 import com.cloud.product.service.ProductCategoryService;
 import com.cloud.product.service.ProductInfoService;
-import com.cloud.product.utils.ResultVOUtil;
 import com.cloud.product.vo.ProductInfoVO;
 import com.cloud.product.vo.ProductVO;
-import com.cloud.product.vo.ResultVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
