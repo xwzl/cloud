@@ -10,6 +10,8 @@ import com.cloud.order.enums.ResultEnum;
  */
 public class OrderException extends RuntimeException {
 
+    private static final long serialVersionUID = -7852696997515581482L;
+
     private Integer code;
 
     public OrderException(Integer code, String message) {
