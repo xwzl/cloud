@@ -42,3 +42,73 @@ Eureka 客户端发现
 服务的，应该通过接口调用获取数据。
 - 依据服务特点选择不同结构的数据库类型。
 - 难点在确定边界，针对边界设计API，依据边界权衡数据冗余。
+
+# 4、应用间通信
+
+### HTTP vs RPC
+    
+- dubbo
+- Spring Cloud
+
+### SpringCloud 中服务间两种 restful 调用方式
+
+- RestTemplate
+- Feign
+
+### 客户端负载均衡：Ribbon
+
+Eureka 是客户端发现的方式，他的负载均衡是软负载，客户单向服务器拉取已注册的可用服务信息，根据负载均衡策略直接命中服务器
+发起请求。整个过程都在客户端完成，并不需要服务器参与。
+
+- RestTemplate
+- Feign
+- Zuul
+
+#### Ribbon 实现软负载均衡核心有三点：
+
+- 服务发现：发现依赖服务的列表，依据服务的名字寻早该服务的所有实例 
+- 服务选择规则：从多个服务中选取一个有效的服务
+- 服务监听： 检测失效的服务，做到高效剔除
+
+#### 组件
+
+- ServerList 
+- IRule
+- ServerListFilter
+
+通过 ServerList 获取所有的可用服务列表，然后 ServerListFilter 过滤一部分地址，最后 IRule 获取一个可用的服务。
+    
+#### 服务通信 feign
+
+调用方（client）配置轮询规则
+
+```yml
+# 负载均衡策略，默认使用轮询，shirt 双击，搜索 IRule ，配置其实现类
+PRODUCT:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+```
+
+在调用方新增  "org.springframework.cloud:spring-cloud-starter-openfeign"
+
+启动类上新增注解 @EnableFeignClients
+
+```java
+@FeignClient(name = "product")
+@RequestMapping("/server")
+public interface ProductClient {
+
+    /**
+     * 获取 product 服务的接口数据
+     *
+     * @param msg msg 参数
+     * @return 获取数据
+     */
+    @GetMapping("/msg")
+    String productMsg(String msg);
+
+}
+```
+#### 注意事项
+
+Feign 调用时，@RequestBody 必须用 Post方法，@PathVariable @RequestParam 或者无参数时可以用get 

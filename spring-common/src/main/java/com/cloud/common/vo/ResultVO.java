@@ -1,4 +1,4 @@
-package com.cloud.common.VO;
+package com.cloud.common.vo;
 
 /**
  * @author xuweizhi

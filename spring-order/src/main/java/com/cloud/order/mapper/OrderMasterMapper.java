@@ -1,6 +1,6 @@
 package com.cloud.order.mapper;
 
-import com.cloud.order.dataobject.OrderMaster;
+import com.cloud.order.model.OrderMaster;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

@@ -1,19 +1,18 @@
 package com.cloud.product.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.cloud.common.VO.ResultVO;
 import com.cloud.common.utils.ResultVOUtil;
+import com.cloud.common.vo.ProductInfoVO;
+import com.cloud.common.vo.ProductVO;
+import com.cloud.common.vo.ResultVO;
+import com.cloud.product.dto.CartDTO;
 import com.cloud.product.model.ProductCategory;
 import com.cloud.product.model.ProductInfo;
 import com.cloud.product.service.ProductCategoryService;
 import com.cloud.product.service.ProductInfoService;
-import com.cloud.product.vo.ProductInfoVO;
-import com.cloud.product.vo.ProductVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,13 +55,13 @@ public class ProductInfoController {
 
         //4. 构造数据
         List<ProductVO> productVOList = new ArrayList<>();
-        for (ProductCategory productCategory: productCategories) {
+        for (ProductCategory productCategory : productCategories) {
             ProductVO productVO = new ProductVO();
             productVO.setCategoryName(productCategory.getCategoryName());
             productVO.setCategoryType(productCategory.getCategoryType());
 
             List<ProductInfoVO> productInfoVOList = new ArrayList<>();
-            for (ProductInfo productInfo: productInfoList) {
+            for (ProductInfo productInfo : productInfoList) {
                 if (productInfo.getCategoryType().equals(productCategory.getCategoryType())) {
                     ProductInfoVO productInfoVO = new ProductInfoVO();
                     BeanUtils.copyProperties(productInfo, productInfoVO);
@@ -75,4 +74,23 @@ public class ProductInfoController {
 
         return ResultVOUtil.success(productVOList);
     }
+
+    /**
+     * 获取商品列表
+     */
+    @PostMapping("/listForOrder")
+    public List<ProductInfo> listForOrder(@RequestBody List<String> productIdList) {
+
+        QueryWrapper<ProductInfo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.in("product_id", productIdList);
+
+        return productInfoService.list(queryWrapper);
+    }
+
+    @PostMapping("/decreaseStock")
+    public void decreaseStock(@RequestBody List<CartDTO> decreaseStockInputList) {
+        productInfoService.decreaseStock(decreaseStockInputList);
+    }
+
+
 }

@@ -1,7 +1,7 @@
 package com.cloud.order.converter;
 
 
-import com.cloud.order.dataobject.OrderDetail;
+import com.cloud.order.model.OrderDetail;
 import com.cloud.order.dto.OrderDTO;
 import com.cloud.order.enums.ResultEnum;
 import com.cloud.order.exception.OrderException;

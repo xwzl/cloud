@@ -1,7 +1,7 @@
 package com.cloud.common.utils;
 
 
-import com.cloud.common.VO.ResultVO;
+import com.cloud.common.vo.ResultVO;
 
 /**
  * @author xuweizhi

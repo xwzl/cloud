@@ -1,6 +1,6 @@
 package com.cloud.order.dto;
 
-import com.cloud.order.dataobject.OrderDetail;
+import com.cloud.order.model.OrderDetail;
 import lombok.Data;
 
 import java.math.BigDecimal;

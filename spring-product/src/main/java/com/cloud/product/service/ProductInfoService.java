@@ -1,6 +1,7 @@
 package com.cloud.product.service;
 
 
+import com.cloud.product.dto.CartDTO;
 import com.cloud.product.model.ProductInfo;
 
 import java.util.List;
@@ -19,5 +20,12 @@ public interface ProductInfoService extends BaseService<ProductInfo> {
      * 查询所有上架商品列表
      */
     List<ProductInfo> findUpAll();
+
+
+    /**
+     * 扣库存
+     * @param decreaseStockInputList
+     */
+    void decreaseStock(List<CartDTO> decreaseStockInputList);
 
 }

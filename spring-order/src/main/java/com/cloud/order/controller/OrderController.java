@@ -1,26 +1,29 @@
 package com.cloud.order.controller;
 
 
-import com.cloud.common.VO.ResultVO;
 import com.cloud.common.utils.ResultVOUtil;
+import com.cloud.common.vo.ResultVO;
+import com.cloud.order.client.ProductClient;
 import com.cloud.order.converter.OrderForm2OrderDTOConverter;
+import com.cloud.order.dataobject.ProductInfo;
+import com.cloud.order.dto.CartDTO;
 import com.cloud.order.dto.OrderDTO;
 import com.cloud.order.enums.ResultEnum;
 import com.cloud.order.exception.OrderException;
 import com.cloud.order.form.OrderForm;
 import com.cloud.order.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * <p>
@@ -38,17 +41,18 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private ProductClient productClient;
+
     /**
      * 1. 参数校验
      * 2. 查询商品信息
      * 3. 计算总价
      * 4. 扣库存
      * 5. 订单入库
-     *
-     * @return
      */
     @PostMapping("/create")
-    public ResultVO<Object> create(@Valid OrderForm orderForm, BindingResult bindingResult) {
+    public ResultVO<Object> create(@Valid OrderForm orderForm, @NotNull BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             log.error("【创建订单】参数不正确, orderForm={}", orderForm);
             throw new OrderException(ResultEnum.PARAM_ERROR.getCode(), Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
@@ -65,6 +69,17 @@ public class OrderController {
         map.put("orderId", result.getOrderId());
 
         return ResultVOUtil.success(map);
+    }
+
+    @GetMapping("/productList")
+    public List<ProductInfo> getProductList() {
+        List<ProductInfo> ProductInfos = productClient.listForOrder(Arrays.asList("157875196366160022", "157875227953464068"));
+        return ProductInfos;
+    }
+
+    @GetMapping("/decreaseStock")
+    public void decreaseStock() {
+        productClient.decreaseStock(Collections.singletonList(new CartDTO("157875196366160022", 2)));
     }
 
 }

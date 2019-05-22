@@ -1,4 +1,4 @@
-package com.cloud.product.vo;
+package com.cloud.common.vo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

@@ -4,11 +4,12 @@ eureka:
     service-url:
       defaultZone: http://47.105.218.58:8763/eureka/,http://47.105.218.58:8761/eureka/,http://47.105.218.58:8762/eureka/
   # 注册中心查看注册服务跳转链接地址：localhost => clientName
-  instance:
-    hostname: product
+#  instance:
+#    hostname: product
+
 spring:
   application:
-    name: server-client
+    name: product
   profiles:
     active: hikari
 server:

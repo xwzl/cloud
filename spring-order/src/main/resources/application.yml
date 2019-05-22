@@ -4,15 +4,21 @@ eureka:
     service-url:
       defaultZone: http://47.105.218.58:8763/eureka/,http://47.105.218.58:8761/eureka/,http://47.105.218.58:8762/eureka/
   # 注册中心查看注册服务跳转链接地址：localhost => clientName
-  instance:
-    hostname: order
+#  instance:
+#    hostname: order
+
+# 负载均衡策略，默认使用轮询，shirt 双击，搜索 IRule ，配置其实现类
+PRODUCT:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+
 spring:
   application:
-    name: server-client
+    name: order
   profiles:
     active: hikari
 server:
-  port: 8080
+  port: 8081
 logging:
   level:
     com.cloud.product.mapper: debug

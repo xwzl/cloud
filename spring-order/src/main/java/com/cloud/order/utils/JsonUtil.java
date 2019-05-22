@@ -27,6 +27,7 @@ public class JsonUtil {
     }
 
     @Nullable
+    @SuppressWarnings({"rawtypes","unchecked"})
     public static Object fromJson(String string, Class classType) {
         try {
             return objectMapper.readValue(string, classType);
@@ -37,6 +38,7 @@ public class JsonUtil {
     }
 
     @Nullable
+    @SuppressWarnings("rawtypes")
     public static Object fromJson(String string, TypeReference typeReference) {
         try {
             return objectMapper.readValue(string, typeReference);

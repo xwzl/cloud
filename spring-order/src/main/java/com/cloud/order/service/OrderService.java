@@ -1,6 +1,6 @@
 package com.cloud.order.service;
 
-import com.cloud.order.dataobject.OrderMaster;
+import com.cloud.order.model.OrderMaster;
 import com.cloud.order.dto.OrderDTO;
 
 /**

@@ -1,4 +1,4 @@
-package com.cloud.product.vo;
+package com.cloud.common.vo;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

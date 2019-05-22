@@ -43,6 +43,7 @@ dependencies {
 
             "org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}",
             "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client",
+            "org.springframework.cloud:spring-cloud-starter-openfeign",
             // 不加SpringBoot Web 依赖会自动退出
             "org.springframework.boot:spring-boot-starter-web",
             "mysql:mysql-connector-java:${mysqlVersion}",

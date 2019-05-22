@@ -1,4 +1,4 @@
-package com.cloud.order.dataobject;
+package com.cloud.order.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
