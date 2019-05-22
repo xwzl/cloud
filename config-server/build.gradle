@@ -1,0 +1,12 @@
+jar.enabled = true
+
+dependencies {
+
+    compile(
+            // 配置服务端最主要的依赖
+            "org.springframework.cloud:spring-cloud-config-server",
+            //本身也是一个微服务
+            "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client",
+            "org.springframework.boot:spring-boot-starter-test"
+    )
+}

@@ -15,5 +15,7 @@ include 'product-server'
 include 'product-client'
 include 'product-common'
 
+include 'config-server'
+
 include 'spring-tool'
 include 'spring-common'
