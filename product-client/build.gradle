@@ -1,0 +1,10 @@
+jar.enabled = true
+
+dependencies {
+
+    compile(project(":product-common"))
+    compile(
+            "org.springframework.cloud:spring-cloud-starter-openfeign",
+            "org.springframework:spring-web"
+    )
+}

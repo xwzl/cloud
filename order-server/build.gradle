@@ -1,0 +1,54 @@
+task resourceOut(type: Copy) {
+    copy {
+        from("src/main/java") {
+            include("**/*.xml")
+        }
+        into("${rootDir}/${project.name}/out/production/classes")
+    }
+}
+
+task resourceBuild(type: Copy) {
+    copy {
+        from("src/main/java") {
+            include("**/*.xml")
+        }
+        into("${rootDir}/${project.name}/build/classes/java/main/")
+    }
+}
+
+//sourceSets {
+//    main {
+//        java {
+//            srcDirs = ['src/main/java', '../spring-common/src/main/java']
+//        }
+//    }
+//}
+//jar {
+//    manifest {
+//        attributes 'Main-Class': 'com.cloud.product.ProductApplication'
+//    }
+//}
+
+dependencies {
+
+    compile(project(":spring-common"))
+    compile(project(":product-client"))
+    
+    compile(
+            "com.baomidou:mybatis-plus:${baomidouVersion}",
+            "com.baomidou:mybatis-plus-generator:${baomidouVersion}",
+            "com.baomidou:mybatis-plus-boot-starter:${baomidouVersion}",
+
+            "com.google.code.gson:gson",
+            "io.springfox:springfox-swagger2:${swaggerVersion}",
+            "com.github.onsoul:springfox-swagger-ui:${swaggerGitHubUi}",
+
+            "org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}",
+            "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client",
+            "org.springframework.cloud:spring-cloud-starter-openfeign",
+            // 不加SpringBoot Web 依赖会自动退出
+            "org.springframework.boot:spring-boot-starter-web",
+            "mysql:mysql-connector-java:${mysqlVersion}",
+    )
+
+}

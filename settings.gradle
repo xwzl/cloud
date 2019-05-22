@@ -3,10 +3,17 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
-rootProject.name = 'cloud'
+rootProject.name = 'microservice'
 
 include 'spring-server'
-include 'spring-order'
-include 'spring-product'
+
+include 'order-server'
+include 'order-client'
+include 'order-common'
+
+include 'product-server'
+include 'product-client'
+include 'product-common'
+
 include 'spring-tool'
 include 'spring-common'
