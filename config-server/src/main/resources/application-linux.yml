@@ -4,6 +4,8 @@ eureka:
   client:
     service-url:
       defaultZone: http://47.105.218.58:8761/eureka/
+  instance:
+    hostname: 47.105.218.58
 spring:
   application:
     name: config-server
