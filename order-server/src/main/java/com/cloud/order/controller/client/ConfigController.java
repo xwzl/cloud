@@ -4,7 +4,7 @@ import com.cloud.order.config.properties.GirlProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -23,14 +23,15 @@ public class ConfigController {
     @Autowired
     private GirlProperties girlProperties;
 
-    @RequestMapping("/env")
+    @GetMapping("/env")
     public String getEnv() {
         return env;
     }
 
-    @RequestMapping("/env1")
-    public GirlProperties getGirl() {
-        return girlProperties;
+    @GetMapping("/env1")
+    public String getGirl() {
+        System.out.println(girlProperties.toString());
+        return girlProperties.toString();
     }
 
 }
