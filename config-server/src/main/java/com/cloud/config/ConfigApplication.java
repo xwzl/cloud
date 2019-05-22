@@ -35,7 +35,7 @@ public class ConfigApplication {
      *
      * @throws IOException
      */
-    @GetMapping("postRefresh")
+    @PostMapping("postRefresh")
     public void httpPostJSON() throws IOException {
         // 模拟 http 请求
         DefaultHttpClient httpClient = new DefaultHttpClient();
