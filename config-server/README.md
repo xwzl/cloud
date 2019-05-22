@@ -76,3 +76,5 @@ curl -X POST “http://localhost:8081/actuator/bus-refresh”
 ![](image/2.png)
 
 > docker run -e "SPRING_PROFILES_ACTIVE=linux" -p 7777:7777 -e "ES_JAVA_OPTS=-Xms64m -Xmx64m" --name config -d microservice/config-server:1.0.0
+ 
+> github 配置的是 http://47.105.218.58:7777/actuator/bus-refresh

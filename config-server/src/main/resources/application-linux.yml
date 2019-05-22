@@ -1,11 +1,9 @@
 server:
   port: 7777
-
 eureka:
   client:
     service-url:
       defaultZone: http://47.105.218.58:8761/eureka/
-
 spring:
   application:
     name: config-server
@@ -17,19 +15,14 @@ spring:
           username: 158262751
           password: 158262751sb.
           basedir: /root/config/
-  # 若没有配置，则为默认配置，一样可以连接
-#  rabbitmq:
-#    host: "localhost"
-#    port: 5672
-#    username: "admin"
-#    password: "admin"
-
-# /{name}-{profiles}.yml
-# /{label}/{name}-{profiles}.yml
-# http://localhost:port/order-a.yml 访问， 根据配置的 git 仓库进行访问
-# name 服务名
-# profiles 环境
-# label 分支(branch)  默认为 master 分支
+    bus:
+      trace:
+        enabled: true
+  rabbitmq:
+    host: 47.105.218.58
+    port: 5672
+    username: guest
+    password: guest
 management:
   endpoints:
     web:
