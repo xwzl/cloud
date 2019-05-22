@@ -17,12 +17,12 @@ spring:
           username: 158262751
           password: 158262751sb.
           basedir: /root/config/
-# 若没有配置，则为默认配置，一样可以连接
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: admin
-    password: admin
+  # 若没有配置，则为默认配置，一样可以连接
+#  rabbitmq:
+#    host: "localhost"
+#    port: 5672
+#    username: "admin"
+#    password: "admin"
 
 # /{name}-{profiles}.yml
 # /{label}/{name}-{profiles}.yml
