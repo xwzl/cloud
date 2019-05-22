@@ -74,3 +74,5 @@ curl -X POST “http://localhost:8081/actuator/bus-refresh”
 原理就是 github 的触发 push 请求，会触发 webhook 上面的地址
 
 ![](image/2.png)
+
+> docker run -e "SPRING_PROFILES_ACTIVE=linux" -p 7777:7777 -e "ES_JAVA_OPTS=-Xms64m -Xmx64m" --name config -d microservice/config-server:1.0.0
