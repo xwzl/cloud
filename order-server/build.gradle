@@ -33,11 +33,12 @@ dependencies {
 
     compile(project(":spring-common"))
     compile(project(":product-client"))
-    
+
     compile(
             "com.baomidou:mybatis-plus:${baomidouVersion}",
             "com.baomidou:mybatis-plus-generator:${baomidouVersion}",
             "com.baomidou:mybatis-plus-boot-starter:${baomidouVersion}",
+            "org.springframework.boot:spring-boot-configuration-processor",
 
             "com.google.code.gson:gson",
             "io.springfox:springfox-swagger2:${swaggerVersion}",
@@ -45,10 +46,13 @@ dependencies {
 
             "org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}",
             "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client",
+
             // 统一配置中心依赖
             "org.springframework.cloud:spring-cloud-config-client",
+            "org.springframework.cloud:spring-cloud-starter-bus-amqp",
+
             "org.springframework.cloud:spring-cloud-starter-openfeign",
-            
+
             // 不加SpringBoot Web 依赖会自动退出
             "org.springframework.boot:spring-boot-starter-web",
             "mysql:mysql-connector-java:${mysqlVersion}",

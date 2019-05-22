@@ -1,3 +1,6 @@
+gril:
+  name: " "
+  age: 0
 eureka:
   client:
     # 注册服务中心

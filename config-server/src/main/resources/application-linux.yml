@@ -17,6 +17,13 @@ spring:
           username: 158262751
           password: 158262751sb.
           basedir: /root/config/
+# 若没有配置，则为默认配置，一样可以连接
+  rabbitmq:
+    host: 47.105.215.58
+    port: 5672
+    username: admin
+    password: admin
+
 # /{name}-{profiles}.yml
 # /{label}/{name}-{profiles}.yml
 # http://localhost:port/order-a.yml 访问， 根据配置的 git 仓库进行访问
@@ -28,3 +35,4 @@ management:
     web:
       exposure:
         include: '*'
+

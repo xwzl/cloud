@@ -1,8 +1,0 @@
-# 我们配置了三个数据，其中第一个作为默认数据源也就是我们的master数据源。主要是写操作，那么读操作交给我们的slave1跟slave2
-spring:
-  datasource:
-      url: jdbc:mysql://47.105.218.58/mooc?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
-      username: root
-      password: 158262751
-      type: com.zaxxer.hikari.HikariDataSource
-      driver-class-name: com.mysql.cj.jdbc.Driver

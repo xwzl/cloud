@@ -10,10 +10,17 @@ eureka:
 spring:
   application:
     name: product
-  profiles:
-    active: hikari
-server:
-  port: 8080
-logging:
-  level:
-    com.cloud.product.mapper: debug
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: CONFIG-SERVER
+      # 特别注意 order.yml ,他是其他文件的通用配置 order-dev.yml
+      profile: dev
+#  profiles:
+#    active: hikari
+#server:
+#  port: 8080
+#logging:
+#  level:
+#    com.cloud.product.mapper: debug

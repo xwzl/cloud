@@ -33,4 +33,44 @@ spring:
         enabled: true
         service-id: CONFIG-SERVER
       profile: dev
+# SpringBoot-bus 统一配置中心
 
+通过消息队列的形势改变配置，rabbitMq配置注意事项，直接写 ip 地址
+
+
+### 2.0 以后
+```yml
+management:  #actuator
+  server:
+    port: 8081
+  endpoints:
+    web:
+#      base-path: / #默认是/actuator 前缀，可以在这里修改
+      exposure:
+        include: "*"  #打开全部请求端点
+#        include: refresh,health,info #打开部分
+```
+
+必须加上启动端口 2.0以后不加上启动端口报404
+
+```yml
+management:  #actuator
+  server:
+    port: 8081
+```
+
+@RefreshScope
+
+2.0之以后
+
+```shell
+curl -v -X POST “http://localhost:8081/actuator/bus-refresh” 
+curl -X POST “http://localhost:8081/actuator/bus-refresh”
+```
+
+
+[自动刷新](https://blog.csdn.net/antma/article/details/81369872)
+
+原理就是 github 的触发 push 请求，会触发 webhook 上面的地址
+
+![](image/2.png)
