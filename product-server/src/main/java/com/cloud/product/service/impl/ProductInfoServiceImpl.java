@@ -1,18 +1,24 @@
 package com.cloud.product.service.impl;
 
+import com.cloud.common.vo.JsonUtil;
 import com.cloud.product.common.DecreaseStockInput;
+import com.cloud.product.common.ProductInfoOutput;
 import com.cloud.product.enums.ResultEnum;
 import com.cloud.product.exception.ProductException;
 import com.cloud.product.mapper.ProductInfoMapper;
 import com.cloud.product.model.ProductInfo;
 import com.cloud.product.service.ProductInfoService;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author xuweizhi
@@ -23,6 +29,9 @@ public class ProductInfoServiceImpl extends BaseServiceImpl<ProductInfoMapper, P
     @Autowired
     private ProductInfoMapper productInfoMapper;
 
+    @Autowired
+    private AmqpTemplate amqpTemplate;
+
     @Override
     public List<ProductInfo> findUpAll() {
         return productInfoMapper.selectByMap(new HashMap<>());
@@ -31,6 +40,22 @@ public class ProductInfoServiceImpl extends BaseServiceImpl<ProductInfoMapper, P
     @Override
     @Transactional
     public void decreaseStock(@NotNull List<DecreaseStockInput> decreaseStockInputs) {
+
+        List<ProductInfo> productInfoList = decreaseStockProcess(decreaseStockInputs);
+
+        //发送mq消息
+        List<ProductInfoOutput> productInfoOutputList = productInfoList.stream().map(e -> {
+            ProductInfoOutput output = new ProductInfoOutput();
+            BeanUtils.copyProperties(e, output);
+            return output;
+        }).collect(Collectors.toList());
+
+        amqpTemplate.convertAndSend("productInfo", JsonUtil.toJson(productInfoOutputList));
+    }
+
+    @Transactional
+    public List<ProductInfo> decreaseStockProcess(List<DecreaseStockInput> decreaseStockInputs) {
+        List<ProductInfo> productInfoList = new ArrayList<>();
         for (DecreaseStockInput stockInput : decreaseStockInputs) {
             ProductInfo productInfo = productInfoMapper.selectById(stockInput.getProductId());
 
@@ -47,7 +72,11 @@ public class ProductInfoServiceImpl extends BaseServiceImpl<ProductInfoMapper, P
 
             productInfo.setProductStock(result);
             productInfoMapper.updateById(productInfo);
+            productInfoList.add(productInfo);
+            //amqpTemplate.convertAndSend("product", JsonUtil.toJson(productInfo));
         }
-
+        return productInfoList;
     }
+
+
 }

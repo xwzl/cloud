@@ -1,0 +1,41 @@
+eureka:
+  client:
+    # 注册服务中心
+    service-url:
+      defaultZone: http://47.105.218.58:8763/eureka/,http://47.105.218.58:8761/eureka/,http://47.105.218.58:8762/eureka/
+spring:
+  application:
+    name: get-away
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: CONFIG-SERVER
+      # 特别注意 order.yml ,他是其他文件的通用配置 order-dev.yml
+      profile: dev
+server:
+  port: 9000
+
+## http://localhost:9000/product/product/list
+#zuul:
+#  routes:
+#    # 配置户访问方式 http://localhost:9000/my/product/list
+#    # 查看所有路由规则 http://localhost:9000/actuator/routes
+#    my: # 一行的名字随意定义
+#      path: /my/** # 注意是 ** 不是 *，这一行一定是访问路径
+#      serviceId: PRODUCT
+#      # 设置敏感信息为空，默认情况下 "Cookie", "Set-Cookie", "Authorization" 会过滤以上字段
+#      # 因此 cookies 是不会传到后面的服务，设置为空就行
+#      sensitiveHeaders:
+#    # 简洁写法,就是 product 服务可以，通过 /test/ 访问
+#    product: /test/**
+#  # - 代表 set 集合,满足此规则下的路径无法被路由
+#  # http://localhost:8080/product/zuul
+#  # http://localhost:9000/test/product/zuul
+#  ignored-patterns:
+#    - /**/product/zuul
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"

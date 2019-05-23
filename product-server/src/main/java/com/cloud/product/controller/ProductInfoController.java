@@ -14,6 +14,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,7 +41,7 @@ public class ProductInfoController {
      * 4. 构造数据
      */
     @GetMapping("/list")
-    public ResultVO getProductInfo() {
+    public ResultVO getProductInfo(HttpServletRequest request) {
 
         // 1. 查询所有再架的商品
         List<ProductInfo> productInfoList = productInfoService.findUpAll();
@@ -90,6 +91,11 @@ public class ProductInfoController {
     @PostMapping("/decreaseStock")
     public void decreaseStock(@RequestBody List<DecreaseStockInput> decreaseStockInputList) {
         productInfoService.decreaseStock(decreaseStockInputList);
+    }
+
+    @GetMapping("/zuul")
+    public String getZuul() {
+        return "如果被静止路由，zuul 无法访问，只能通过自身服务访问！";
     }
 
 

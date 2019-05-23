@@ -21,13 +21,16 @@ dependencies {
     compile(project(":spring-common"))
 
     compile(
+
             "com.baomidou:mybatis-plus:${baomidouVersion}",
             "com.baomidou:mybatis-plus-generator:${baomidouVersion}",
             "com.baomidou:mybatis-plus-boot-starter:${baomidouVersion}",
-
-            "io.springfox:springfox-swagger2:${swaggerVersion}",
             "com.github.onsoul:springfox-swagger-ui:${swaggerGitHubUi}",
+            "io.springfox:springfox-swagger2:${swaggerVersion}",
 
+
+            "org.springframework.boot:spring-boot-starter-amqp",
+//            "org.springframework.boot:spring-boot-starter-data-redis",
             "org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}",
             "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client",
 
