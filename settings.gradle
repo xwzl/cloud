@@ -8,8 +8,8 @@ rootProject.name = 'microservice'
 include 'spring-server'
 
 include 'order-server'
-include 'order-client'
-include 'order-common'
+//include 'order-client'
+//include 'order-common'
 
 include 'product-server'
 include 'product-client'

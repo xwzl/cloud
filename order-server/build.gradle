@@ -39,6 +39,7 @@ dependencies {
             "com.baomidou:mybatis-plus-generator:${baomidouVersion}",
             "com.baomidou:mybatis-plus-boot-starter:${baomidouVersion}",
             "org.springframework.boot:spring-boot-configuration-processor",
+            "org.springframework.boot:spring-boot-starter-amqp",
 
             "com.google.code.gson:gson",
             "io.springfox:springfox-swagger2:${swaggerVersion}",
