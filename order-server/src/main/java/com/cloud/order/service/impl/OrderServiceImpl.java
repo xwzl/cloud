@@ -1,8 +1,11 @@
 package com.cloud.order.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cloud.order.dto.OrderDTO;
 import com.cloud.order.enums.OrderStatusEnum;
 import com.cloud.order.enums.PayStatusEnum;
+import com.cloud.order.enums.ResultEnum;
+import com.cloud.order.exception.OrderException;
 import com.cloud.order.mapper.OrderDetailMapper;
 import com.cloud.order.mapper.OrderMasterMapper;
 import com.cloud.order.model.OrderDetail;
@@ -16,11 +19,15 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -43,6 +50,7 @@ public class OrderServiceImpl extends BaseServiceImpl<OrderMasterMapper, OrderMa
     private ProductClient productClient;
 
     @Override
+    @Transactional
     public OrderDTO create(@NotNull OrderDTO orderDTO) {
 
         String orderId = KeyUtil.genUniqueKey();
@@ -57,7 +65,6 @@ public class OrderServiceImpl extends BaseServiceImpl<OrderMasterMapper, OrderMa
             for (ProductInfoOutput productInfo : productInfoList) {
                 if (productInfo.getProductId().equals(orderDetail.getProductId())) {
                     //单价*数量
-                    //orderDetail.setProductQuantity(2);
                     orderAmount = productInfo.getProductPrice()
                             .multiply(new BigDecimal(orderDetail.getProductQuantity()))
                             .add(orderAmount);
@@ -71,9 +78,6 @@ public class OrderServiceImpl extends BaseServiceImpl<OrderMasterMapper, OrderMa
         }
 
         //扣库存(调用商品服务)
-        /* List<CartDTO> cartDTOList = orderDTO.getOrderDetailList().stream()
-                .map(e -> new CartDTO(e.getProductId(), e.getProductQuantity()))
-                .collect(Collectors.toList());*/
         List<OrderDetail> detailList = orderDTO.getOrderDetailList();
         Stream<OrderDetail> detailStream = detailList.stream();
         DecreaseStockInput decreaseStockInput = new DecreaseStockInput();
@@ -92,7 +96,43 @@ public class OrderServiceImpl extends BaseServiceImpl<OrderMasterMapper, OrderMa
 
         orderMaster.setCreateTime(LocalDateTime.now());
         orderMaster.setUpdateTime(LocalDateTime.now());
+
         orderMasterMapper.insert(orderMaster);
+        return orderDTO;
+    }
+
+
+    @Override
+    @Transactional
+    public OrderDTO finish(String openid) {
+        //1.查询订单
+        QueryWrapper<OrderMaster> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("order_id",openid);
+        OrderMaster order = orderMasterMapper.selectOne(queryWrapper);
+
+        //订单不存在
+        if (order == null) {
+            throw new OrderException(ResultEnum.ORDER_NOT_EXIST);
+        }
+        //2.判断订单状态
+        if (!OrderStatusEnum.NEW.getCode().equals(order.getOrderStatus())) {
+            throw new OrderException(ResultEnum.ORDER_STATUS_ERROR);
+        }
+        //3.修改订单状态为完结
+        order.setOrderStatus(OrderStatusEnum.FINISHED.getCode());
+        orderMasterMapper.updateById(order);
+        //4.查询订单详情
+        Map<String, Object> params = new HashMap<>();
+        params.put("order_id", order.getOrderId());
+        List<OrderDetail> orderDetails = orderDetailMapper.selectByMap(params);
+        if (CollectionUtils.isEmpty(orderDetails)) {
+            throw new OrderException(ResultEnum.ORDER_DETAIL_NOT_EXIST);
+        }
+
+        OrderDTO orderDTO = new OrderDTO();
+        BeanUtils.copyProperties(order, orderDTO);
+        orderDTO.setOrderDetailList(orderDetails);
+
         return orderDTO;
     }
 

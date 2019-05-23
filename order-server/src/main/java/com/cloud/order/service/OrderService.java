@@ -21,4 +21,10 @@ public interface OrderService extends BaseService<OrderMaster> {
      */
     OrderDTO create(OrderDTO orderDTO);
 
+
+    /**
+     * 完结
+     */
+    OrderDTO finish(String openid);
+
 }

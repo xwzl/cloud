@@ -1,5 +1,7 @@
 package com.cloud.order.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -24,6 +26,7 @@ public class OrderMaster implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @TableId(value = "order_id", type = IdType.ID_WORKER_STR)
     private String orderId;
 
     @ApiModelProperty(value = "买家名字")

@@ -1,4 +1,4 @@
-package com.cloud.zuul;
+package com.cloud.getaway.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;

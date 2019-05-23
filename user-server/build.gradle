@@ -1,0 +1,54 @@
+task resourceOut(type: Copy) {
+    copy {
+        from("src/main/java") {
+            include("**/*.xml")
+        }
+        into("${rootDir}/${project.name}/out/production/classes")
+    }
+}
+
+task resourceBuild(type: Copy) {
+    copy {
+        from("src/main/java") {
+            include("**/*.xml")
+        }
+        into("${rootDir}/${project.name}/build/classes/java/main/")
+    }
+}
+
+dependencies {
+
+    compile(project(":spring-common"))
+    
+    compile(
+            "com.google.code.gson:gson",
+            "com.baomidou:mybatis-plus:${baomidouVersion}",
+            "com.baomidou:mybatis-plus-generator:${baomidouVersion}",
+            "com.baomidou:mybatis-plus-boot-starter:${baomidouVersion}",
+            "com.github.onsoul:springfox-swagger-ui:${swaggerGitHubUi}",
+
+            "io.springfox:springfox-swagger2:${swaggerVersion}",
+
+            "mysql:mysql-connector-java:${mysqlVersion}",
+
+            // 不加SpringBoot Web 依赖会自动退出
+            "org.springframework.boot:spring-boot-starter-web",
+            "org.springframework.boot:spring-boot-starter-data-redis",
+            "org.springframework.boot:spring-boot-configuration-processor",
+            "org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}",
+
+            // 统一配置中心依赖
+            "org.springframework.cloud:spring-cloud-config-client",
+            // 消息总线 包含stream-rabbit
+            "org.springframework.cloud:spring-cloud-starter-bus-amqp",
+            "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client",
+
+
+
+
+
+
+
+    )
+
+}

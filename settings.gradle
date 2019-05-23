@@ -6,7 +6,8 @@ pluginManagement {
 rootProject.name = 'microservice'
 
 include 'spring-server'
-include 'cloud-zuul'
+include 'api-getaway'
+include 'user-server'
 
 include 'order-server'
 //include 'order-client'

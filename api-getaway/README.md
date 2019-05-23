@@ -42,3 +42,16 @@ http://localhost:9000/serverName/uri
 ### 高可用
 
 多个 Zuul 节点注册到 Eureka Server 上，Nginx 和 Zuul 混搭
+
+![](image/3.png)
+
+### 前置过滤器进行限流操作
+
+限流操作的时机是在请求被转发之前调用，最靠前的前置过滤器中，比权限校验靠前。
+
+令牌桶算法，以固定的速率进行访问请求，获取其中的令牌，当令牌满的时候，抛弃请求。
+
+[限流](https://www.jianshu.com/p/76cc8ba5ca91)
+
+![](image/4.png)
+

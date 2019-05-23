@@ -72,6 +72,10 @@ public class GeneratorUntil {
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
         strategy.setEntityTableFieldAnnotationEnable(true);
 
+        if (helper.isEntityColumnConstant()) {
+            strategy.setEntityColumnConstant(helper.isEntityColumnConstant());
+        }
+
         if (StringUtils.isNotEmpty(helper.getBaseEntitySimpleName())) {
             strategy.setSuperEntityClass("com.java.mybatis.entity.BaseEntity");
         }
@@ -178,13 +182,26 @@ public class GeneratorUntil {
         gc.setOpen(false);
         //去除service报名前缀i
         gc.setServiceName("%sService");
+        if (helper.isBaseColumnList()) {
+            gc.setBaseColumnList(true);
+        }
+        if (helper.isBaseResultMap()) {
+            gc.setBaseResultMap(true);
+        }
+
         //实体属性 Swagger2 注解
         gc.setSwagger2(true);
-        gc.setBaseResultMap(true);
+
         gc.setEntityName("%s");
         gc.setMapperName("%sMapper");
+
         // 设置ID 生成策略
-        gc.setIdType(IdType.AUTO);
+        if (helper.getIdType() == null) {
+            gc.setIdType(IdType.AUTO);
+        } else {
+            gc.setIdType(helper.getIdType());
+        }
+
         mpg.setGlobalConfig(gc);
 
         return projectPath;

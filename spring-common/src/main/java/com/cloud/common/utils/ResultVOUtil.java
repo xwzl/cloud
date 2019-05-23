@@ -9,9 +9,9 @@ import com.cloud.common.vo.ResultVO;
  */
 public class ResultVOUtil {
 
-    public static ResultVO<Object> success(Object object) {
-        ResultVO<Object> resultVO = new ResultVO<>();
-        resultVO.setData(object);
+    public static <T> ResultVO<T> success(T t) {
+        ResultVO<T> resultVO = new ResultVO<>();
+        resultVO.setData(t);
         resultVO.setCode(0);
         resultVO.setMsg("成功");
         return resultVO;
