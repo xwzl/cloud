@@ -35,28 +35,38 @@ dependencies {
     compile(project(":product-client"))
 
     compile(
+            "com.google.code.gson:gson",
             "com.baomidou:mybatis-plus:${baomidouVersion}",
             "com.baomidou:mybatis-plus-generator:${baomidouVersion}",
             "com.baomidou:mybatis-plus-boot-starter:${baomidouVersion}",
-            "org.springframework.boot:spring-boot-configuration-processor",
-            "org.springframework.boot:spring-boot-starter-amqp",
-
-            "com.google.code.gson:gson",
-            "io.springfox:springfox-swagger2:${swaggerVersion}",
             "com.github.onsoul:springfox-swagger-ui:${swaggerGitHubUi}",
 
-            "org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}",
-            "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client",
+            "io.springfox:springfox-swagger2:${swaggerVersion}",
 
-            // 统一配置中心依赖
-            "org.springframework.cloud:spring-cloud-config-client",
-            "org.springframework.cloud:spring-cloud-starter-bus-amqp",
-
-            "org.springframework.cloud:spring-cloud-starter-openfeign",
+            "mysql:mysql-connector-java:${mysqlVersion}",
 
             // 不加SpringBoot Web 依赖会自动退出
             "org.springframework.boot:spring-boot-starter-web",
-            "mysql:mysql-connector-java:${mysqlVersion}",
+            "org.springframework.boot:spring-boot-starter-amqp",
+            "org.springframework.boot:spring-boot-configuration-processor",
+            "org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}",
+
+            // 统一配置中心依赖
+            "org.springframework.cloud:spring-cloud-config-client",
+            // 消息总线 包含stream-rabbit
+            "org.springframework.cloud:spring-cloud-starter-bus-amqp",
+            // 应用间通信
+            "org.springframework.cloud:spring-cloud-starter-openfeign",
+            // rabbit 通信
+            "org.springframework.cloud:spring-cloud-starter-stream-rabbit",
+            "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client",
+
+
+
+
+
+
+
     )
 
 }

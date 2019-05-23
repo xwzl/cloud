@@ -1,6 +1,3 @@
-gril:
-  name: " "
-  age: 0
 eureka:
   client:
     # 注册服务中心
@@ -9,11 +6,10 @@ eureka:
 # 注册中心查看注册服务跳转链接地址：localhost => clientName
 #  instance:
 #    hostname: order
-
-# 负载均衡策略，默认使用轮询，shirt 双击，搜索 IRule ，配置其实现类
-#PRODUCT:
-#  ribbon:
-#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+#    lease-renewal-interval-in-seconds: 2 # 设置心跳的时间间隔（默认是30秒）
+#    lease-expiration-duration-in-seconds: 5 # 如果现在超过了5秒的间隔（默认是90秒）
+#    instance-id: send-8401.com  # 在信息列表时显示主机名称
+#    prefer-ip-address: true     # 访问的路径变为IP地址
 
 # 必须是这个 bootstrap 配置才有效,特别注意 order.yml ,他是其他文件的通用配置
 spring:
@@ -26,16 +22,3 @@ spring:
         service-id: CONFIG-SERVER
       # 特别注意 order.yml ,他是其他文件的通用配置 order-dev.yml
       profile: dev
-  #  profiles:
-  #    active: hikari
-#  datasource:
-#    url: jdbc:mysql://47.105.218.58/mooc?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
-#    username: root
-#    password: 158262751
-#    type: com.zaxxer.hikari.HikariDataSource
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#server:
-#  port: 8081
-#logging:
-#  level:
-#    com.cloud.product.mapper: debug

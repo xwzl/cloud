@@ -55,4 +55,18 @@ public class OrderDTO {
 
     private List<OrderDetail> orderDetailList;
 
+    @Override
+    public String toString() {
+        return "OrderDTO{" +
+                "orderId='" + orderId + '\'' +
+                ", buyerName='" + buyerName + '\'' +
+                ", buyerPhone='" + buyerPhone + '\'' +
+                ", buyerAddress='" + buyerAddress + '\'' +
+                ", buyerOpenid='" + buyerOpenid + '\'' +
+                ", orderAmount=" + orderAmount +
+                ", orderStatus=" + orderStatus +
+                ", payStatus=" + payStatus +
+                ", orderDetailList=" + orderDetailList +
+                '}';
+    }
 }
