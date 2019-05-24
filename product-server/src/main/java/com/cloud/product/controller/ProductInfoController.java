@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,9 +39,10 @@ public class ProductInfoController {
     private ProductCategoryService productCategoryService;
 
     /**
-     * 4. 构造数据
+     * 4. 构造数据，允许跨域访问,由服务网关统一处理
      */
     @GetMapping("/list")
+    @CrossOrigin(allowCredentials = "true")
     public ResultVO getProductInfo(HttpServletRequest request) {
 
         // 1. 查询所有再架的商品
@@ -82,8 +84,29 @@ public class ProductInfoController {
     @PostMapping("/listForOrder")
     public List listForOrder(@RequestBody List<String> productIdList) {
 
+
         QueryWrapper<ProductInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.in("product_id", productIdList);
+
+        return productInfoService.list(queryWrapper);
+    }
+
+    /**
+     * 一定要注意啊，服务调用要用 Post ,RestTemplate 测试用 get
+     */
+    @GetMapping("/listFor")
+    public List listFor() {
+
+        // 延时模拟
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        QueryWrapper<ProductInfo> queryWrapper = new QueryWrapper<>();
+
+        queryWrapper.in("product_id", Collections.singletonList("157875227953464068"));
 
         return productInfoService.list(queryWrapper);
     }

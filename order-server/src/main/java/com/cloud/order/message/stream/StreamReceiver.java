@@ -21,7 +21,7 @@ public class StreamReceiver {
     /**
      * 监听输出通道,正常来说是个起作用
      */
-    @StreamListener(value = StreamClient.INPUT)
+    @StreamListener(value = StreamClient.OUTPUT)
     public void process(Object message) {
         log.info("StreamReceiver:{}", message);
     }

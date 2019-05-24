@@ -15,6 +15,10 @@ spring:
       profile: dev
 server:
   port: 9000
+ribbon:
+  ReadTimeout: 5000
+  SocketTimeout: 5000
+
 
 ## http://localhost:9000/product/product/list
 #zuul:

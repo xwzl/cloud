@@ -22,3 +22,50 @@ spring:
         service-id: CONFIG-SERVER
       # 特别注意 order.yml ,他是其他文件的通用配置 order-dev.yml
       profile: dev
+  # 配置链路监控地址
+  zipkin:
+    base-url: http://47.105.218.58:9411/
+  sleuth:
+    sampler:
+      probability: 1 # 默认只暴露 0.1 的数据请求,开发设置为1
+    http:
+      legacy:
+        enabled: true
+server:
+  port: 8081
+
+
+hystrix:
+  command:
+    # 默认匹配所有带有 @HystrixCommand 方法的注解，注意啊，这里是 default
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 6000 # 配置 hystrix 超时时间,方法注解中超时时间配置会覆盖掉默认配置。
+    # 为 listFor 方法 单独设置超时时间
+    listFor:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 6000 # 配置 hystrix 超时时间,方法注解中超时时间配置会覆盖掉方法。
+
+# feign 熔断措施
+feign:
+  hystrix:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" # 开放所有页面节点  默认只开启了health、info两个节点
+        # 配置后监控路径为 http://localhost:8081/hystrix.stream,默认 http://localhost:8081/actuator/hystrix.stream
+  #      base-path: /   # 修改访问路径  2.0之前默认是/   2.0默认是 /actuator  可以通过这个属性值修改
+  server:
+    port: 8081 #actuator端口
+#    servlet: # 无效的配置
+#      context-path: / # 同 base-path
+logging:
+  level:
+    org.springframework.cloud.openfeign: debug

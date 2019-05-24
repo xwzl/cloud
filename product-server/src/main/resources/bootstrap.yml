@@ -17,3 +17,6 @@ spring:
         service-id: CONFIG-SERVER
       # 特别注意 order.yml ,他是其他文件的通用配置 order-dev.yml
       profile: dev
+logging:
+  level:
+    org.springframework.cloud.openfeign: debug

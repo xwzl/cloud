@@ -7,14 +7,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * 返送消息队列
@@ -31,17 +28,17 @@ public class RabbitMqController {
     @Autowired
     private AmqpTemplate amqpTemplate;
 
-    @Autowired
-    private HelloSender1 helloSender;
-
-    @Autowired
-    private TopicSender topicSender;
-
-    @Autowired
-    private FanoutSender fanoutSender;
-
-    @Autowired
-    private CallBackSender callBackSender;
+    //@Autowired
+    //private HelloSender1 helloSender;
+    //
+    //@Autowired
+    //private TopicSender topicSender;
+    //
+    //@Autowired
+    //private FanoutSender fanoutSender;
+    //
+    //@Autowired
+    //private CallBackSender callBackSender;
 
     @Autowired
     private AnnotationRabbitMq annotationRabbitMq;
@@ -56,67 +53,67 @@ public class RabbitMqController {
         return ResultVOUtil.success(message);
     }
 
-    @GetMapping("/send")
-    public String sendMessage() {
-        helloSender.send();
-        return "发送成功";
-    }
-
-    @GetMapping("/sends")
-    public String sendMessages() {
-        for(int i=0;i<3;i++){
-            helloSender.send("hellomsg:"+i);
-        }
-        return "发送成功ss";
-    }
-
-    @GetMapping("/sendUser")
-    public String sendUser() {
-        helloSender.sendUser();
-        return "发送成功la";
-    }
-
-    @GetMapping("/we")
-    public String we() {
-        helloSender.sendY();
-        return "发送成功la";
-    }
-
-    @GetMapping("/topic")
-    public String topic() {
-        topicSender.send();
-        return "发送成功lasss";
-    }
-
-    /**
-     * fanout exchange类型rabbitmq测试
-     */
-    @GetMapping("/fanoutTest")
-    public void fanoutTest() {
-        System.out.println("xxx");
-        fanoutSender.send();
-    }
-
-    @GetMapping("/callback")
-    public void callbak() {
-        callBackSender.send();
-    }
-
-    @GetMapping("/anno")
-    public void anno() {
-        annotationRabbitMq.send();
-    }
-
-    @GetMapping("/order")
-    public void order() {
-        annotationRabbitMq.sendOrder();
-    }
-
-    @Scheduled(cron = "30 27 * * * *")
-    public void datePrint(){
-        annotationRabbitMq.sendOrder();
-        System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-    }
+    //@GetMapping("/send")
+    //public String sendMessage() {
+    //    helloSender.send();
+    //    return "发送成功";
+    //}
+    //
+    //@GetMapping("/sends")
+    //public String sendMessages() {
+    //    for(int i=0;i<3;i++){
+    //        helloSender.send("hellomsg:"+i);
+    //    }
+    //    return "发送成功ss";
+    //}
+    //
+    //@GetMapping("/sendUser")
+    //public String sendUser() {
+    //    helloSender.sendUser();
+    //    return "发送成功la";
+    //}
+    //
+    //@GetMapping("/we")
+    //public String we() {
+    //    helloSender.sendY();
+    //    return "发送成功la";
+    //}
+    //
+    //@GetMapping("/topic")
+    //public String topic() {
+    //    topicSender.send();
+    //    return "发送成功lasss";
+    //}
+    //
+    ///**
+    // * fanout exchange类型rabbitmq测试
+    // */
+    //@GetMapping("/fanoutTest")
+    //public void fanoutTest() {
+    //    System.out.println("xxx");
+    //    fanoutSender.send();
+    //}
+    //
+    //@GetMapping("/callback")
+    //public void callbak() {
+    //    callBackSender.send();
+    //}
+    //
+    //@GetMapping("/anno")
+    //public void anno() {
+    //    annotationRabbitMq.send();
+    //}
+    //
+    //@GetMapping("/order")
+    //public void order() {
+    //    annotationRabbitMq.sendOrder();
+    //}
+    //
+    //@Scheduled(cron = "30 27 * * * *")
+    //public void datePrint(){
+    //    annotationRabbitMq.sendOrder();
+    //    System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+    //}
 
     /*@RabbitListener(queues = "helloQueue")
     @RabbitHandler

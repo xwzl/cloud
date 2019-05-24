@@ -12,6 +12,7 @@ import com.cloud.order.service.OrderService;
 import com.cloud.prodcut.common.DecreaseStockInput;
 import com.cloud.prodcut.common.ProductInfoOutput;
 import com.cloud.product.client.ProductClient;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,8 +48,11 @@ public class OrderController {
      * 3. 计算总价
      * 4. 扣库存
      * 5. 订单入库
+     *
+     * 加入熔断后不会找不到服务
      */
     @PostMapping("/create")
+    @HystrixCommand
     public ResultVO<Object> create(@Valid OrderForm orderForm, @NotNull BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             log.error("【创建订单】参数不正确, orderForm={}", orderForm);

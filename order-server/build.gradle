@@ -48,14 +48,26 @@ dependencies {
             // 不加SpringBoot Web 依赖会自动退出
             "org.springframework.boot:spring-boot-starter-web",
             "org.springframework.boot:spring-boot-starter-amqp",
+            "org.springframework.boot:spring-boot-starter-actuator",
             "org.springframework.boot:spring-boot-starter-data-redis",
             "org.springframework.boot:spring-boot-configuration-processor",
             "org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}",
 
             // 统一配置中心依赖
             "org.springframework.cloud:spring-cloud-config-client",
+            "org.springframework.cloud:spring-cloud-starter-netflix-hystrix",
+            // 额外配置 actuator
+            "org.springframework.cloud:spring-cloud-starter-netflix-hystrix-dashboard",
+
             // 消息总线 包含stream-rabbit
             "org.springframework.cloud:spring-cloud-starter-bus-amqp",
+            /// 链路监控
+//            "org.springframework.cloud:spring-cloud-starter-sleuth",
+//            "org.springframework.cloud:spring-cloud-sleuth-zipkin",
+            // 包含这两个依赖
+            "org.springframework.cloud:spring-cloud-starter-zipkin",
+
+
             // 应用间通信
             "org.springframework.cloud:spring-cloud-starter-openfeign",
             // rabbit 通信

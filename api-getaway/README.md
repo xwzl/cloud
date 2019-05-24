@@ -55,3 +55,6 @@ http://localhost:9000/serverName/uri
 
 ![](image/4.png)
 
+### Zuul 处理跨域配置
+
+CrossConfig 统一配置跨域请求

@@ -9,6 +9,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -17,16 +18,16 @@ import static org.springframework.cloud.netflix.zuul.filters.support.FilterConst
 import static org.springframework.cloud.netflix.zuul.filters.support.FilterConstants.PRE_TYPE;
 
 /**
- * 权限校验,标注为 component 才会被加入缓存
+ * 权限校验
  *
  * @author xuweizhi
  * @date 2019/05/23 21:30
  */
-//@Component
-public class AuthFilter extends ZuulFilter {
+@Component
+public class AuthSellerFilter extends ZuulFilter {
 
     @Autowired
-    private RedisTemplate<String,String> redisGenericTemplate;
+    private RedisTemplate<String, String> redisGenericTemplate;
 
     /**
      * 过滤器的类型
@@ -49,7 +50,13 @@ public class AuthFilter extends ZuulFilter {
      */
     @Override
     public boolean shouldFilter() {
-        return true;
+        RequestContext currentContext = RequestContext.getCurrentContext();
+        HttpServletRequest request = currentContext.getRequest();
+
+        if ("/order/order/finish".equals(request.getRequestURI())) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -63,26 +70,14 @@ public class AuthFilter extends ZuulFilter {
         RequestContext currentContext = RequestContext.getCurrentContext();
         HttpServletRequest request = currentContext.getRequest();
 
-        /*
-          /order/create 只能买家访问(Cookie有openid)
-          /order/finish 只能卖家访问(Cookie有token,并对应的redis)
-          /product/list 都可  访问
-         */
-        if ("/order/order/create".equals(request.getRequestURI())) {
-            Cookie cookie = CookieUtils.get(request, "openid");
-            if (cookie == null || StringUtils.isEmpty(cookie.getValue())) {
-                currentContext.setSendZuulResponse(false);
-                currentContext.setResponseStatusCode(HttpStatus.UNAUTHORIZED.value());
-            }
+        Cookie cookie = CookieUtils.get(request, "token");
+        String token = null ;
+        if (cookie != null) {
+            token = redisGenericTemplate.opsForValue().get(String.format(RedisConstant.TOKEN_TEMPLATE, cookie.getValue()));
         }
-
-        if ("/order/order/finish".equals(request.getRequestURI())) {
-            Cookie cookie = CookieUtils.get(request, "token");
-            if (cookie == null || StringUtils.isEmpty(cookie.getValue()) ||
-                    StringUtils.isEmpty(redisGenericTemplate.opsForValue().get(String.format(RedisConstant.TOKEN_TEMPLATE, cookie.getValue())))) {
-                currentContext.setSendZuulResponse(false);
-                currentContext.setResponseStatusCode(HttpStatus.UNAUTHORIZED.value());
-            }
+        if (cookie == null || StringUtils.isEmpty(cookie.getValue()) || StringUtils.isEmpty(token)) {
+            currentContext.setSendZuulResponse(false);
+            currentContext.setResponseStatusCode(HttpStatus.UNAUTHORIZED.value());
         }
 
         return null;
