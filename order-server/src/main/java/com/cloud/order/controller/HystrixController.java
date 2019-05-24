@@ -78,7 +78,7 @@ public class HystrixController {
      */
     @HystrixCommand(commandProperties = {
             // 设置超时时间为 3 s，默认 1 秒触发降级服务,也可以在配置文件中配置超时时间,会覆盖掉默认的超时配置
-            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "2000")
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "7000")
     })
     @GetMapping("/listFor")
     public String listFor() {

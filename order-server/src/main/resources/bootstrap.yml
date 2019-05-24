@@ -25,6 +25,8 @@ spring:
   # 配置链路监控地址
   zipkin:
     base-url: http://47.105.218.58:9411/
+    sender:
+      type: web # 坑的东西
   sleuth:
     sampler:
       probability: 1 # 默认只暴露 0.1 的数据请求,开发设置为1
@@ -35,6 +37,7 @@ server:
   port: 8081
 
 
+# 好像 feign 不起作用
 hystrix:
   command:
     # 默认匹配所有带有 @HystrixCommand 方法的注解，注意啊，这里是 default
@@ -69,3 +72,11 @@ management:
 logging:
   level:
     org.springframework.cloud.openfeign: debug
+# 2.x 配置
+#feign:
+#  client:
+#    config:
+#      default:
+#        connectTimeout: 6000
+#        readTimeout: 6000
+#        loggerLevel: basic
