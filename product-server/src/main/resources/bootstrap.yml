@@ -2,7 +2,7 @@ eureka:
   client:
     # 注册服务中心
     service-url:
-      defaultZone: http://47.105.218.58:8763/eureka/,http://47.105.218.58:8761/eureka/,http://47.105.218.58:8762/eureka/
+      defaultZone: http://47.105.218.58:8761/eureka/,http://47.105.218.58:8762/eureka/,http://47.105.218.58:8763/eureka/
 #  注册中心查看注册服务跳转链接地址：localhost => clientName
 #  instance:
 #    hostname: product
@@ -17,6 +17,16 @@ spring:
         service-id: CONFIG-SERVER
       # 特别注意 order.yml ,他是其他文件的通用配置 order-dev.yml
       profile: dev
+  zipkin:
+    base-url: http://47.105.218.58:9411/
+    sender:
+      type: web # 坑的东西
+  sleuth:
+    sampler:
+      probability: 1 # 默认只暴露 0.1 的数据请求,开发设置为1
+    http:
+      legacy:
+        enabled: true
 logging:
   level:
     org.springframework.cloud.openfeign: debug

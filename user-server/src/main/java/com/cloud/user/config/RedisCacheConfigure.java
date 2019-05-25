@@ -1,4 +1,4 @@
-package com.cloud.order.config;
+package com.cloud.user.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;

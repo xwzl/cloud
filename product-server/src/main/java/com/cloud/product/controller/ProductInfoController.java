@@ -51,11 +51,6 @@ public class ProductInfoController {
         // 2. 查取类目type列表
         List<Integer> collect = productInfoList.stream().map(ProductInfo::getCategoryType).filter(integer -> integer == 1).collect(Collectors.toList());
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         // 3. 查询类目
         QueryWrapper<ProductCategory> queryWrapper = new QueryWrapper<>();
         queryWrapper.in("category_type", collect);
@@ -92,6 +87,11 @@ public class ProductInfoController {
 
         QueryWrapper<ProductInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.in("product_id", productIdList);
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         return productInfoService.list(queryWrapper);
     }

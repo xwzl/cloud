@@ -30,8 +30,8 @@ dependencies {
 
 
             "org.springframework.boot:spring-boot-starter-amqp",
-            "org.springframework.cloud:spring-cloud-starter-sleuth",
-//            "org.springframework.cloud:spring-cloud-starter-zipkin",
+//            "org.springframework.cloud:spring-cloud-starter-sleuth",
+            "org.springframework.cloud:spring-cloud-starter-zipkin",
 //            "org.springframework.boot:spring-boot-starter-data-redis",
             "org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}",
             "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client",

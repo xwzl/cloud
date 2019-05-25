@@ -2,7 +2,7 @@ eureka:
   client:
     # 注册服务中心
     service-url:
-      defaultZone: http://47.105.218.58:8763/eureka/,http://47.105.218.58:8761/eureka/,http://47.105.218.58:8762/eureka/
+      defaultZone: http://47.105.218.58:8761/eureka/,http://47.105.218.58:8762/eureka/,http://47.105.218.58:8763/eureka/
 # 注册中心查看注册服务跳转链接地址：localhost => clientName
 #  instance:
 #    hostname: order
@@ -54,9 +54,9 @@ hystrix:
             timeoutInMilliseconds: 6000 # 配置 hystrix 超时时间,方法注解中超时时间配置会覆盖掉方法。
 
 # feign 熔断措施
-feign:
-  hystrix:
-    enabled: true
+#feign:
+#  hystrix:
+#    enabled: true
 
 management:
   endpoints:
@@ -73,10 +73,10 @@ logging:
   level:
     org.springframework.cloud.openfeign: debug
 # 2.x 配置
-#feign:
-#  client:
-#    config:
-#      default:
-#        connectTimeout: 6000
-#        readTimeout: 6000
-#        loggerLevel: basic
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 16000
+        readTimeout: 16000
+        loggerLevel: basic

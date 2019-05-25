@@ -33,6 +33,7 @@ dependencies {
 
             // 不加SpringBoot Web 依赖会自动退出
             "org.springframework.boot:spring-boot-starter-web",
+            "org.springframework.cloud:spring-cloud-starter-zipkin",
             "org.springframework.boot:spring-boot-starter-data-redis",
             "org.springframework.boot:spring-boot-configuration-processor",
             "org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}",
