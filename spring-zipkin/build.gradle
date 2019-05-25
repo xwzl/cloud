@@ -1,0 +1,10 @@
+dependencies {
+
+    compile(
+            "org.springframework.boot:spring-boot-starter-tomcat",
+            "io.zipkin.java:zipkin-server:2.11.8",
+            "io.zipkin.java:zipkin-autoconfigure-ui:2.11.8",
+            "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client",
+    )
+
+}

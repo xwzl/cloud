@@ -11,15 +11,5 @@ spring:
         enabled: true
         service-id: CONFIG-SERVER
       profile: dev
-  zipkin:
-    base-url: http://47.105.218.58:9411/
-    sender:
-      type: web # 坑的东西
-  sleuth:
-    sampler:
-      probability: 1 # 默认只暴露 0.1 的数据请求,开发设置为1
-    http:
-      legacy:
-        enabled: true
 server:
   port: 8083

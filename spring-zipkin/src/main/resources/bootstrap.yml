@@ -1,0 +1,9 @@
+server:
+  port: 9411
+spring:
+  application:
+    name: zipkin
+eureka:
+  client:
+    service-url:
+      defaultZone: http://47.105.218.58:8761/eureka/,http://47.105.218.58:8762/eureka/,http://47.105.218.58:8763/eureka/

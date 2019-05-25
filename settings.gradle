@@ -21,3 +21,5 @@ include 'config-server'
 
 include 'spring-tool'
 include 'spring-common'
+
+//include 'spring-zipkin'
