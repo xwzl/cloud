@@ -6,6 +6,7 @@ pluginManagement {
 rootProject.name = 'microservice'
 
 include 'spring-server'
+include 'spring-admin'
 include 'api-getaway'
 include 'user-server'
 

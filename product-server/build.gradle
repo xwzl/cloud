@@ -45,6 +45,9 @@ dependencies {
             // 不加SpringBoot Web 依赖会自动退出
             "org.springframework.boot:spring-boot-starter-web",
             "mysql:mysql-connector-java:${mysqlVersion}",
+
+            "org.springframework.boot:spring-boot-starter-actuator",
+
     )
 
 }

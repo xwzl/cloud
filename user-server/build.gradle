@@ -44,11 +44,7 @@ dependencies {
             "org.springframework.cloud:spring-cloud-starter-bus-amqp",
             "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client",
 
-
-
-
-
-
+            "org.springframework.boot:spring-boot-starter-actuator",
 
     )
 

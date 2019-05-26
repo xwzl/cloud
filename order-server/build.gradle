@@ -73,13 +73,6 @@ dependencies {
             // rabbit 通信
             "org.springframework.cloud:spring-cloud-starter-stream-rabbit",
             "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client",
-
-
-
-
-
-
-
     )
 
 }

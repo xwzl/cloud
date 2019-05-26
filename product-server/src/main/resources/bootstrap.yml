@@ -12,3 +12,12 @@ spring:
         enabled: true
         service-id: CONFIG-SERVER
       profile: dev
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
