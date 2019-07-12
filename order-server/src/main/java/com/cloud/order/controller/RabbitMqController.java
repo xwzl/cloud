@@ -3,7 +3,7 @@ package com.cloud.order.controller;
 import com.cloud.common.utils.ResultVOUtil;
 import com.cloud.common.vo.JsonUtil;
 import com.cloud.common.vo.ResultVO;
-import com.cloud.order.message.test.*;
+import com.cloud.order.message.test.AnnotationRabbitMq;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.AmqpTemplate;
@@ -43,6 +43,14 @@ public class RabbitMqController {
 
     @Autowired
     private AnnotationRabbitMq annotationRabbitMq;
+
+    @GetMapping("/death")
+    public void testScheduledTask() {
+        amqpTemplate.convertAndSend("deathExchange", "death", "这是定时任务测试！", message -> {
+            message.getMessageProperties().setExpiration("3000");
+            return message;
+        });
+    }
 
     @GetMapping("/test")
     public String helloTest() {

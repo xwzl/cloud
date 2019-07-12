@@ -1,11 +1,61 @@
 package com.cloud.order.config;
 
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.DirectExchange;
+import org.springframework.amqp.core.Queue;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author xuweizhi
  * @date 2019/05/23 10:32
  */
-//@Configuration
+@Configuration
 public class RabbitMapConfig {
+
+    /**
+     * 死信队列
+     */
+    @Bean
+    Queue deathQueue() {
+        Map<String, Object> args = new HashMap<>();
+        // 消息过期转换的消息键
+        args.put("x-dead-letter-exchange", "deathExchange");
+        // 真正消费队列对应的消费键
+        args.put("x-dead-letter-routing-key", "consumer");
+        return new Queue("deathQueue", true, false, false, args);
+    }
+
+    /**
+     * 死信交换机
+     */
+    @Bean
+    DirectExchange deathExchange() {
+        return new DirectExchange("deathExchange", true, false);
+    }
+
+    /**
+     * 定时任务执行的队列
+     */
+    @Bean
+    Queue consumerQueue() {
+        return new Queue("consumerQueue", true);
+    }
+
+    @Bean
+    Binding bindingDeathQueue(Queue deathQueue, DirectExchange deathExchange) {
+        return BindingBuilder.bind(deathQueue).to(deathExchange).with("death");
+    }
+
+    @Bean
+    Binding bindingConsumerQueue(Queue consumerQueue, DirectExchange deathExchange) {
+        return BindingBuilder.bind(consumerQueue).to(deathExchange).with("consumer");
+    }
+
 
     ///**
     // * 创建 hello 队列；
