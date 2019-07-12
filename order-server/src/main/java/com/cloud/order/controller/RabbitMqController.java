@@ -1,6 +1,7 @@
 package com.cloud.order.controller;
 
 import com.cloud.common.utils.ResultVOUtil;
+import com.cloud.common.vo.JsonUtil;
 import com.cloud.common.vo.ResultVO;
 import com.cloud.order.message.test.*;
 import org.slf4j.Logger;
@@ -42,6 +43,13 @@ public class RabbitMqController {
 
     @Autowired
     private AnnotationRabbitMq annotationRabbitMq;
+
+    @GetMapping("/test")
+    public String helloTest() {
+        amqpTemplate.convertAndSend("amqp_test", JsonUtil.toJson("这是一个好消息"));
+        return "Amqp Test";
+    }
+
 
     /**
      * 发送消息
