@@ -1,1 +1,1 @@
-docker run --name server1 -e JAVA_OPTS='-Xms128m -Xmx128m' -e "SPRING_PROFILES_ACTIVE=server1" -d 40997617f6c0
+docker run --name server1 -p 8761:8761  -e JAVA_OPTS='-Xms128m -Xmx128m' -e "SPRING_PROFILES_ACTIVE=server1" -d 40997617f6c0
