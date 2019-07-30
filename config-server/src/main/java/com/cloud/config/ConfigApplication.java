@@ -1,13 +1,13 @@
 package com.cloud.config;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.config.server.EnableConfigServer;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,13 +32,12 @@ public class ConfigApplication {
     /**
      * 远程 git webhooks ，调用此接口，由此接口发起 http post 请求去
      * 触发bus-refresh 接口，通过 rabbitmq 等一系列 默认处理机制就可以实现动态刷新机制
-     *
-     * @throws IOException
      */
     @PostMapping("postRefresh")
     public void httpPostJSON() throws IOException {
         // 模拟 http 请求
-        DefaultHttpClient httpClient = new DefaultHttpClient();
+        //DefaultHttpClient httpClient = new DefaultHttpClient();
+        HttpClient httpClient = HttpClientBuilder.create().build();
         String url = "http://47.105.218.58:7777/actuator/bus-refresh";
         HttpPost httpPost = new HttpPost(url);
         // 设置请求的header
