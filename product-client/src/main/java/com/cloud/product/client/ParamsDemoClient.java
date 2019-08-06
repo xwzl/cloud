@@ -1,8 +1,16 @@
 package com.cloud.product.client;
 
+import com.cloud.common.dtos.AppleDTO;
+import com.cloud.common.dtos.UserDTO;
+import feign.Param;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 /**
  * @author xuweizhi
@@ -12,13 +20,57 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface ParamsDemoClient {
 
     @GetMapping("/params/test1")
-    public String test1Get();
+    String test1Get();
 
+    /**
+     * 单个参数传递需要加 @RequestParam 注解,暴露接口不需要加注解
+     * <p>
+     * 如果出现暴露接口加 @RequestParam 注解，服务调用时必须传入改参数
+     *
+     * @param param1
+     * @return
+     */
     @GetMapping("/params/test2")
-    public String test2Get(@RequestParam("param1") String param1);
+    String test2Get(@RequestParam(value = "param1", required = false) String param1);
 
-    @GetMapping("/test3")
-    public String test3Get(@RequestParam("param1") String param1, @RequestParam("param2") String param2);
+    /**
+     * 包含 @Param 注解的参数，传输必须存在
+     *
+     * @param param1
+     * @param param2
+     * @return
+     */
+    @GetMapping("/params/test3")
+    String test3Get(@RequestParam(value = "param1", required = false) String param1, @RequestParam("param2") String param2);
 
+    /**
+     * get 方法单个对象传递测试
+     * <p>
+     * UserDTO 中的参数必须存在，get 方法多参数请求时必须加 @RequestParam 参数
+     * <p>
+     * 单个对象传递加 @RequestBody 注解，抛异常 405 , 服务端控制台打印不支持 get 方法，支持 post 方法， put 和 delete 未测试
+     *
+     * @param userDTO
+     * @param param1
+     * @param param2
+     * @return
+     */
+    @GetMapping("/params/test4")
+    String test4Get(@SpringQueryMap UserDTO userDTO, @RequestParam("param1") String param1, @RequestParam("param2") String param2);
+
+    @GetMapping("/params/test5")
+    public String test5Get(@RequestParam("user") UserDTO user, @RequestParam("apple") AppleDTO apple);
+
+    @GetMapping("/params/test6")
+    public String test6Get(@SpringQueryMap List<AppleDTO> lists);
+
+    @PostMapping("/params/test7")
+    public String test7Post(@RequestParam(value = "param1", required = false) String param1, @RequestParam("param2") String param2);
+
+    @PostMapping("/params/test8")
+    public String test8Get(@RequestBody List<AppleDTO> lists);
+
+    @PostMapping("/params/test9")
+    public String test9Get(@RequestBody UserDTO user);
 
 }
