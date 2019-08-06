@@ -1,7 +1,7 @@
 package com.cloud.product.client;
 
-import com.cloud.prodcut.common.DecreaseStockInput;
-import com.cloud.prodcut.common.ProductInfoOutput;
+import com.cloud.product.common.DecreaseStockInput;
+import com.cloud.product.common.ProductInfoOutput;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +15,7 @@ import java.util.List;
  * @author xuweizhi
  * @date 2019/05/22 11:33
  */
-@FeignClient(name = "product", fallback = ProductClient.ProductClientBack.class)
+@FeignClient(name = "product",contextId = "user",fallback = ProductClient.ProductClientBack.class)
 public interface ProductClient {
 
     /**

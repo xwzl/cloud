@@ -1,4 +1,4 @@
-package com.cloud.prodcut.common;
+package com.cloud.product.common;
 
 import lombok.Data;
 

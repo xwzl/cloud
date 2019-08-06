@@ -1,7 +1,7 @@
 package com.cloud.order.message;
 
 import com.cloud.order.utils.JsonUtil;
-import com.cloud.prodcut.common.ProductInfoOutput;
+import com.cloud.product.common.ProductInfoOutput;
 import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.Queue;

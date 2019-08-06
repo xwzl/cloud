@@ -22,3 +22,31 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
+  server:
+    port: 8083 #actuator端口
+
+# 负载均衡策略，默认使用轮询，shirt 双击，搜索 IRule ，配置其实现类
+PRODUCT:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 16000
+    listFor:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 16000
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 16000
+        readTimeout: 26000
+        loggerLevel: basic
