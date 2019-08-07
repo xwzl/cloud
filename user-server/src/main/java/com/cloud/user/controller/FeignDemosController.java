@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -74,5 +77,20 @@ public class FeignDemosController {
     @GetMapping("test9")
     public void getTest9(UserDTO userDTO, AppleDTO appleDTO) {
         log.info(paramsDemoClient.test9Get(userDTO));
+    }
+
+    @GetMapping("test10")
+    public void getTest10() {
+        log.info(paramsDemoClient.returnDate(new Date()).toString());
+    }
+
+    @GetMapping("test11")
+    public void getTest11() {
+        log.info(paramsDemoClient.returnDate(LocalDateTime.now()).toString());
+    }
+
+    @GetMapping("test12")
+    public void getTest12() {
+        log.info(paramsDemoClient.returnDate(LocalDate.now()).toString());
     }
 }

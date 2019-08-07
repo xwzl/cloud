@@ -2,8 +2,12 @@ package com.cloud.product.controller.server;
 
 import com.cloud.common.dtos.AppleDTO;
 import com.cloud.common.dtos.UserDTO;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -63,6 +67,24 @@ public class ParamsController {
 
     @PostMapping("/test9")
     public String test9Get(@RequestBody UserDTO user) {
-        return user.toString() ;
+        return user.toString();
+    }
+
+    @GetMapping("/test10")
+    public Date returnDate(@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")Date date) {
+        System.out.println(date);
+        return date;
+    }
+
+    @GetMapping("/test11")
+    public LocalDateTime returnDate(LocalDateTime localDateTime) {
+        System.out.println(localDateTime);
+        return localDateTime;
+    }
+
+    @GetMapping("/test12")
+    public LocalDate returnDate(LocalDate localDate) {
+        System.out.println(localDate);
+        return localDate;
     }
 }

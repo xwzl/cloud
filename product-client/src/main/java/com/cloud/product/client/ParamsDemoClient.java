@@ -2,14 +2,18 @@ package com.cloud.product.client;
 
 import com.cloud.common.dtos.AppleDTO;
 import com.cloud.common.dtos.UserDTO;
-import feign.Param;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.cloud.openfeign.SpringQueryMap;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,6 +21,7 @@ import java.util.List;
  * @since 2019-08-06
  */
 @FeignClient(name = "product")
+@Component
 public interface ParamsDemoClient {
 
     @GetMapping("/params/test1")
@@ -61,7 +66,7 @@ public interface ParamsDemoClient {
     @GetMapping("/params/test5")
     public String test5Get(@RequestParam("user") UserDTO user, @RequestParam("apple") AppleDTO apple);
 
-    @GetMapping("/params/test6")
+    @GetMapping(value = "/params/test6"/*, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE*/)
     public String test6Get(@SpringQueryMap List<AppleDTO> lists);
 
     @PostMapping("/params/test7")
@@ -72,5 +77,15 @@ public interface ParamsDemoClient {
 
     @PostMapping("/params/test9")
     public String test9Get(@RequestBody UserDTO user);
+
+
+    @GetMapping("/params/test10")
+    public Date returnDate(@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date date);
+
+    @GetMapping("/params/test11")
+    public LocalDateTime returnDate(@RequestParam("localDateTime") LocalDateTime localDateTime);
+
+    @GetMapping("/params/test12")
+    public LocalDateTime returnDate(@RequestParam("localDate") LocalDate localDate);
 
 }
