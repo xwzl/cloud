@@ -9,6 +9,7 @@ include 'spring-server'
 include 'spring-admin'
 include 'api-getaway'
 include 'user-server'
+include 'microsoft-start'
 
 include 'order-server'
 //include 'order-client'

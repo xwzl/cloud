@@ -1,0 +1,7 @@
+dependencies {
+    compile(project(":spring-common"))
+    compile(
+            'org.springframework.boot:spring-boot-starter-web',
+//            'com.cloud.spring:microservice:1.0.0'
+    )
+}
