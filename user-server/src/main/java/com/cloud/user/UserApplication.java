@@ -24,6 +24,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @MapperScan("com.cloud.user.mapper")
 @EnableHystrixDashboard
 @EnableFeignClients(basePackages = "com.cloud.product.client")
+//@EnableFeignClients(basePackages = "com.cloud.product.client",defaultConfiguration = "")
 @ComponentScan(basePackages = "com.cloud")
 public class UserApplication {
 
