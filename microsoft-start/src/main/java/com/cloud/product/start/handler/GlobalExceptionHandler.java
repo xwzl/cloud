@@ -1,6 +1,9 @@
 package com.cloud.product.start.handler;
 
+import com.cloud.product.start.exception.ApiException;
 import com.cloud.product.start.exception.ServiceException;
+import com.cloud.product.start.util.ApiResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -16,15 +19,15 @@ import java.io.IOException;
  * @since 2019-08-09
  */
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Throwable.class)
     public ApiResult handleThrowable(Throwable e) {
-//        log.error("meet exception: " + e.getClass().getName() + " " + e.getMessage());
         log.error("meet exception: ", e);
-        return new ApiResult(HttpStatusEnum.INTERNAL_SERVER_ERROR.value(),
-                HttpStatusEnum.INTERNAL_SERVER_ERROR.getReasonPhrase());
+        return new ApiResult(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
     }
 
     @ExceptionHandler(ApiException.class)

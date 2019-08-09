@@ -1,6 +1,7 @@
 package com.cloud.product.start.exception;
 
 import com.cloud.product.start.enums.ServiceCodeEnum;
+import lombok.Getter;
 
 /**
  * service 层抛出的异常
@@ -8,6 +9,7 @@ import com.cloud.product.start.enums.ServiceCodeEnum;
  * @author xuweizhi
  * @since 2019-08-09
  */
+@Getter
 public class ServiceException extends RuntimeException {
 
     private Integer code = ServiceCodeEnum.SUCCESS.getCode();

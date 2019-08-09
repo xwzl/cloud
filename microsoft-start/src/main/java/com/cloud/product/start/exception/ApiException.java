@@ -1,5 +1,6 @@
 package com.cloud.product.start.exception;
 
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
  * @author xuweizhi
  * @since 2019-08-09
  */
+@Getter
 public class ApiException extends RuntimeException {
 
     private Integer code = HttpStatus.OK.value();
