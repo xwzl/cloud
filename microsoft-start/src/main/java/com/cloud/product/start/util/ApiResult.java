@@ -1,7 +1,7 @@
 package com.cloud.product.start.util;
 
-import com.cloud.product.start.enums.ServiceCodeEnum;
-import com.cloud.product.start.exception.ServiceException;
+import com.cloud.common.enums.ServiceCodeEnum;
+import com.cloud.common.exception.ServiceException;
 
 import java.io.Serializable;
 

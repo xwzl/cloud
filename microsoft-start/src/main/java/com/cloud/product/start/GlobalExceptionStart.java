@@ -1,5 +1,7 @@
 package com.cloud.product.start;
 
+import com.cloud.product.start.handler.GlobalExceptionHandler;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -8,4 +10,9 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class GlobalExceptionStart {
+
+    @Bean
+    public GlobalExceptionHandler globalExceptionHandler() {
+        return new GlobalExceptionHandler();
+    }
 }

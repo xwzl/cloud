@@ -1,6 +1,6 @@
-package com.cloud.product.start.exception;
+package com.cloud.common.exception;
 
-import com.cloud.product.start.enums.ServiceCodeEnum;
+import com.cloud.common.enums.ServiceCodeEnum;
 import lombok.Getter;
 
 /**

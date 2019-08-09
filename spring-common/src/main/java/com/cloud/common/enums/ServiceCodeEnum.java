@@ -1,4 +1,4 @@
-package com.cloud.product.start.enums;
+package com.cloud.common.enums;
 
 import lombok.Getter;
 import org.jetbrains.annotations.Contract;
