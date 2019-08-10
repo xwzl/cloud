@@ -1,5 +1,6 @@
 package com.cloud.user;
 
+import com.cloud.product.start.handler.FeignErrorDecoder;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,12 +24,13 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableCaching
 @MapperScan("com.cloud.user.mapper")
 @EnableHystrixDashboard
-@EnableFeignClients(basePackages = "com.cloud.product.client")
-//@EnableFeignClients(basePackages = "com.cloud.product.client",defaultConfiguration = "")
+//@EnableFeignClients(basePackages = "com.cloud.product.client")
+@EnableFeignClients(basePackages = "com.cloud.product.client",defaultConfiguration = FeignErrorDecoder.class)
 @ComponentScan(basePackages = "com.cloud")
 public class UserApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(UserApplication.class, args);
     }
 

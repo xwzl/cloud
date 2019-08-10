@@ -1,7 +1,12 @@
 dependencies {
     compile(project(":spring-common"))
+    compile(project(":microsoft-start"))
     compile(
             'org.springframework.boot:spring-boot-starter-web',
+            'org.springframework.boot:spring-boot-configuration-processor',
+            "org.springframework.cloud:spring-cloud-starter-openfeign",
+            'org.springframework.boot:spring-boot-autoconfigure',
+            'com.alibaba:fastjson:1.2.59'
 //            'com.cloud.spring:microservice:1.0.0'
     )
 }

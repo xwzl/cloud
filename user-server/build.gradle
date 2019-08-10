@@ -20,6 +20,7 @@ dependencies {
 
     compile(project(":spring-common"))
     compile(project(":product-client"))
+    compile(project(":microsoft-start"))
 
     compile(
             "com.google.code.gson:gson",

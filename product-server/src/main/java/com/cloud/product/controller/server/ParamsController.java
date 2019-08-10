@@ -2,6 +2,7 @@ package com.cloud.product.controller.server;
 
 import com.cloud.common.dtos.AppleDTO;
 import com.cloud.common.dtos.UserDTO;
+import com.cloud.common.exception.ServiceException;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,9 @@ public class ParamsController {
 
     @GetMapping("/test1")
     public String test1Get() {
+        if (Math.random() > 0.3d) {
+            throw new ServiceException(10, "这是一个错误消息！");
+        }
         return "这是返回消息";
     }
 
@@ -71,7 +75,7 @@ public class ParamsController {
     }
 
     @GetMapping("/test10")
-    public Date returnDate(@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")Date date) {
+    public Date returnDate(@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date date) {
         System.out.println(date);
         return date;
     }

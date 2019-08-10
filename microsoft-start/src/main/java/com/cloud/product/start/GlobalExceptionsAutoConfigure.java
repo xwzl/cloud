@@ -9,10 +9,10 @@ import org.springframework.context.annotation.Configuration;
  * @since 2019-08-09
  */
 @Configuration
-public class GlobalExceptionStart {
+public class GlobalExceptionsAutoConfigure {
 
     @Bean
-    public GlobalExceptionHandler globalExceptionHandler() {
+    public GlobalExceptionHandler globalExceptionHandlers() {
         return new GlobalExceptionHandler();
     }
 }
