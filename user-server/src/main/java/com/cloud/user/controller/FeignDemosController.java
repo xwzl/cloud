@@ -3,6 +3,7 @@ package com.cloud.user.controller;
 import com.cloud.common.dtos.AppleDTO;
 import com.cloud.common.dtos.UserDTO;
 import com.cloud.product.client.ParamsDemoClient;
+import com.cloud.product.start.util.ApiResult;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,9 @@ public class FeignDemosController {
     private ParamsDemoClient paramsDemoClient;
 
     @GetMapping("test1")
-    public void getTest1() {
+    public ApiResult<String> getTest1() {
         log.info(paramsDemoClient.test1Get());
+        return new ApiResult<>("haha");
     }
 
     @GetMapping("test2")

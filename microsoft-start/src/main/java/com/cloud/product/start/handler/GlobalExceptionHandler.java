@@ -18,8 +18,8 @@ import java.io.IOException;
  * @author xuweizhi
  * @since 2019-08-09
  */
-@RestControllerAdvice
 @Slf4j
+@RestControllerAdvice
 public class GlobalExceptionHandler {
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

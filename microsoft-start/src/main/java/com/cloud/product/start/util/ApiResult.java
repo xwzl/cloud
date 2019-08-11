@@ -2,6 +2,7 @@ package com.cloud.product.start.util;
 
 import com.cloud.common.enums.ServiceCodeEnum;
 import com.cloud.common.exception.ServiceException;
+import lombok.Data;
 
 import java.io.Serializable;
 
@@ -9,6 +10,7 @@ import java.io.Serializable;
  * @author xuweizhi
  * @since 2019-08-09
  */
+@Data
 public class ApiResult<T> implements Serializable {
 
     private int code;
