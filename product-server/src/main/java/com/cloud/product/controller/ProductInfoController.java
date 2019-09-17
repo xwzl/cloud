@@ -1,7 +1,7 @@
 package com.cloud.product.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.cloud.common.utils.ResultVOUtil;
+import com.cloud.common.utils.ResultVoUtils;
 import com.cloud.common.vo.ProductInfoVO;
 import com.cloud.common.vo.ProductVO;
 import com.cloud.common.vo.ResultVO;
@@ -75,7 +75,7 @@ public class ProductInfoController {
             productVOList.add(productVO);
         }
 
-        return ResultVOUtil.success(productVOList);
+        return ResultVoUtils.success(productVOList);
     }
 
     /**

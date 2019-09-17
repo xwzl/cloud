@@ -1,7 +1,7 @@
 package com.cloud.order.controller;
 
 
-import com.cloud.common.utils.ResultVOUtil;
+import com.cloud.common.utils.ResultVoUtils;
 import com.cloud.common.vo.ResultVO;
 import com.cloud.order.converter.OrderForm2OrderDTOConverter;
 import com.cloud.order.dto.OrderDTO;
@@ -69,7 +69,7 @@ public class OrderController {
         Map<String, String> map = new HashMap<>();
         map.put("orderId", result.getOrderId());
 
-        return ResultVOUtil.success(map);
+        return ResultVoUtils.success(map);
     }
 
     @GetMapping("/productList")
@@ -85,7 +85,7 @@ public class OrderController {
 
     @PostMapping("/finish")
     public ResultVO<OrderDTO> finish(@RequestParam("orderId") String orderId) {
-        return ResultVOUtil.success(orderService.finish(orderId));
+        return ResultVoUtils.success(orderService.finish(orderId));
     }
 
 }

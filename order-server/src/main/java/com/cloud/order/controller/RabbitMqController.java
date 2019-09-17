@@ -1,6 +1,6 @@
 package com.cloud.order.controller;
 
-import com.cloud.common.utils.ResultVOUtil;
+import com.cloud.common.utils.ResultVoUtils;
 import com.cloud.common.vo.JsonUtil;
 import com.cloud.common.vo.ResultVO;
 import com.cloud.order.message.test.AnnotationRabbitMq;
@@ -66,7 +66,7 @@ public class RabbitMqController {
     public ResultVO<Object> sendMessage(String message) {
         amqpTemplate.convertAndSend("myQueue", message + LocalDateTime.now());
         log.info("Send message:{}", message);
-        return ResultVOUtil.success(message);
+        return ResultVoUtils.success(message);
     }
 
     //@GetMapping("/send")

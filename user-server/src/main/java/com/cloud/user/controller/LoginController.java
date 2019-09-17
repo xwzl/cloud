@@ -2,6 +2,7 @@ package com.cloud.user.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.cloud.common.utils.RequestUtils;
 import com.cloud.common.vo.ResultVO;
 import com.cloud.common.constant.CookieConstant;
 import com.cloud.common.constant.RedisConstant;
@@ -44,7 +45,10 @@ public class LoginController {
      * 买家登录
      */
     @GetMapping("/buyer")
-    private ResultVO buyer(@RequestParam("openid") String openid, HttpServletResponse response) {
+    private ResultVO buyer(@RequestParam("openid") String openid, HttpServletResponse response,HttpServletRequest request) {
+        String ids = request.getHeader("ids");
+        // 获取 zuul 中的信息
+        String userId = RequestUtils.getUserId();
         //1.openid和数据库里的数据进行匹配
         QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("openid", openid);

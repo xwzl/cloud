@@ -38,6 +38,7 @@ public class AddResponseHeaderFilter extends ZuulFilter {
     public Object run() throws ZuulException {
         RequestContext requestContext = RequestContext.getCurrentContext();
         HttpServletResponse response = requestContext.getResponse();
+        // 这里给 response 返回信息添加值
         response.setHeader("X-Foo", UUID.randomUUID().toString());
         return null;
     }

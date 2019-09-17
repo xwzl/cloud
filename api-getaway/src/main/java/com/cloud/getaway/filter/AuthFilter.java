@@ -9,6 +9,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -22,11 +23,11 @@ import static org.springframework.cloud.netflix.zuul.filters.support.FilterConst
  * @author xuweizhi
  * @date 2019/05/23 21:30
  */
-//@Component
+@Component
 public class AuthFilter extends ZuulFilter {
 
     @Autowired
-    private RedisTemplate<String,String> redisGenericTemplate;
+    private RedisTemplate<String, String> redisGenericTemplate;
 
     /**
      * 过滤器的类型
@@ -61,13 +62,14 @@ public class AuthFilter extends ZuulFilter {
     public Object run() throws ZuulException {
 
         RequestContext currentContext = RequestContext.getCurrentContext();
+        // 存在 getaway RequestContext ,服务调用获取信息
+        currentContext.addZuulRequestHeader("id", "test");
         HttpServletRequest request = currentContext.getRequest();
-
-        /*
-          /order/create 只能买家访问(Cookie有openid)
-          /order/finish 只能卖家访问(Cookie有token,并对应的redis)
-          /product/list 都可  访问
-         */
+        // 放入request 请求中，转接
+        request.setAttribute("ids", "ids");
+        ///order/create 只能买家访问(Cookie有openid)
+        ///order/finish 只能卖家访问(Cookie有token,并对应的redis)
+        ///product/list 都可  访问
         if ("/order/order/create".equals(request.getRequestURI())) {
             Cookie cookie = CookieUtils.get(request, "openid");
             if (cookie == null || StringUtils.isEmpty(cookie.getValue())) {
